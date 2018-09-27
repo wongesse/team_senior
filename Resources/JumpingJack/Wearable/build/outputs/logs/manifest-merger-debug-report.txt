@@ -1,0 +1,169 @@
+-- Merging decision tree log ---
+manifest
+ADDED from C:\Users\Compact\Documents\GitHub\team_senior\Resources\JumpingJack\Wearable\src\main\AndroidManifest.xml:17:1-47:12
+INJECTED from C:\Users\Compact\Documents\GitHub\team_senior\Resources\JumpingJack\Wearable\src\main\AndroidManifest.xml:17:1-47:12
+INJECTED from C:\Users\Compact\Documents\GitHub\team_senior\Resources\JumpingJack\Wearable\src\main\AndroidManifest.xml:17:1-47:12
+MERGED from [com.google.android.gms:play-services-wearable:15.0.1] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\play-services-wearable-15.0.1.aar\c644ca3e8f63680b83322f70413236a3\AndroidManifest.xml:17:1-24:12
+MERGED from [com.android.support:support-v13:27.1.1] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\support-v13-27.1.1.aar\601c73ca3542ea37220949610ac78718\AndroidManifest.xml:17:1-22:12
+MERGED from [com.google.android.support:wearable:2.3.0] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\wearable-2.3.0.aar\9e8cd1acd88899f84bb8dc64ff7a8718\AndroidManifest.xml:2:1-15:12
+MERGED from [com.google.android.gms:play-services-base:15.0.1] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\play-services-base-15.0.1.aar\0f9ef6f0b5cc052452e766759f7e1397\AndroidManifest.xml:17:1-29:12
+MERGED from [com.google.android.gms:play-services-tasks:15.0.1] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\play-services-tasks-15.0.1.aar\5b076442cd7749d629b0b78e74c85821\AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.android.gms:play-services-basement:15.0.1] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\play-services-basement-15.0.1.aar\b17f09b1e7c010102aeaa4ba491cad18\AndroidManifest.xml:17:1-28:12
+MERGED from [com.android.support:recyclerview-v7:26.0.2] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-26.0.2.aar\9940fdc1389597896035b6775ce33eb5\AndroidManifest.xml:17:1-28:12
+MERGED from [com.android.support:support-v4:27.1.1] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\support-v4-27.1.1.aar\4d4ab618ad1bb66f6a3ca81433314501\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-media-compat:27.1.1] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\support-media-compat-27.1.1.aar\0844d39fb65a418f3dca0766b7534ce5\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-fragment:27.1.1] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\support-fragment-27.1.1.aar\cec58ddc5af969815ba504768efbb1ba\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-ui:27.1.1] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\support-core-ui-27.1.1.aar\2272b920a7ea185fba7680442873c343\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-utils:27.1.1] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\support-core-utils-27.1.1.aar\e3d4902375318617d00a30643088d206\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:percent:26.0.2] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\percent-26.0.2.aar\9650dac7d0402b38162d4659aeed552c\AndroidManifest.xml:17:1-28:12
+MERGED from [com.android.support:support-compat:27.1.1] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\support-compat-27.1.1.aar\90539bc398020fde958e023b1866ee31\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:livedata-core:1.1.0] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\livedata-core-1.1.0.aar\4665ba3a5e6ade57706253d30d73894d\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:viewmodel:1.1.0] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\viewmodel-1.1.0.aar\ca61da4bb603e67bab82067e949c9d6d\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:runtime:1.1.0] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\5f017f0ea0552a473cec2171b6f98b0e\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.core:runtime:1.1.0] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\4f135941087cc96e4c2641ea73c358bd\AndroidManifest.xml:17:1-22:12
+INJECTED from C:\Users\Compact\Documents\GitHub\team_senior\Resources\JumpingJack\Wearable\src\main\AndroidManifest.xml:17:1-47:12
+INJECTED from C:\Users\Compact\Documents\GitHub\team_senior\Resources\JumpingJack\Wearable\src\main\AndroidManifest.xml:17:1-47:12
+	package
+		ADDED from C:\Users\Compact\Documents\GitHub\team_senior\Resources\JumpingJack\Wearable\src\main\AndroidManifest.xml:18:11-61
+	android:versionName
+		INJECTED from C:\Users\Compact\Documents\GitHub\team_senior\Resources\JumpingJack\Wearable\src\main\AndroidManifest.xml
+		ADDED from C:\Users\Compact\Documents\GitHub\team_senior\Resources\JumpingJack\Wearable\src\main\AndroidManifest.xml:17:1-47:12
+		INJECTED from C:\Users\Compact\Documents\GitHub\team_senior\Resources\JumpingJack\Wearable\src\main\AndroidManifest.xml
+	android:versionCode
+		INJECTED from C:\Users\Compact\Documents\GitHub\team_senior\Resources\JumpingJack\Wearable\src\main\AndroidManifest.xml
+		ADDED from C:\Users\Compact\Documents\GitHub\team_senior\Resources\JumpingJack\Wearable\src\main\AndroidManifest.xml:17:1-47:12
+		INJECTED from C:\Users\Compact\Documents\GitHub\team_senior\Resources\JumpingJack\Wearable\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from C:\Users\Compact\Documents\GitHub\team_senior\Resources\JumpingJack\Wearable\src\main\AndroidManifest.xml:17:11-69
+uses-sdk
+ADDED from C:\Users\Compact\Documents\GitHub\team_senior\Resources\JumpingJack\Wearable\src\main\AndroidManifest.xml:20:4-21:46
+INJECTED from C:\Users\Compact\Documents\GitHub\team_senior\Resources\JumpingJack\Wearable\src\main\AndroidManifest.xml:20:4-21:46
+INJECTED from C:\Users\Compact\Documents\GitHub\team_senior\Resources\JumpingJack\Wearable\src\main\AndroidManifest.xml:20:4-21:46
+MERGED from [com.google.android.gms:play-services-wearable:15.0.1] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\play-services-wearable-15.0.1.aar\c644ca3e8f63680b83322f70413236a3\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-wearable:15.0.1] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\play-services-wearable-15.0.1.aar\c644ca3e8f63680b83322f70413236a3\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-v13:27.1.1] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\support-v13-27.1.1.aar\601c73ca3542ea37220949610ac78718\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-v13:27.1.1] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\support-v13-27.1.1.aar\601c73ca3542ea37220949610ac78718\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.support:wearable:2.3.0] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\wearable-2.3.0.aar\9e8cd1acd88899f84bb8dc64ff7a8718\AndroidManifest.xml:5:5-7:41
+MERGED from [com.google.android.support:wearable:2.3.0] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\wearable-2.3.0.aar\9e8cd1acd88899f84bb8dc64ff7a8718\AndroidManifest.xml:5:5-7:41
+MERGED from [com.google.android.gms:play-services-base:15.0.1] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\play-services-base-15.0.1.aar\0f9ef6f0b5cc052452e766759f7e1397\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-base:15.0.1] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\play-services-base-15.0.1.aar\0f9ef6f0b5cc052452e766759f7e1397\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-tasks:15.0.1] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\play-services-tasks-15.0.1.aar\5b076442cd7749d629b0b78e74c85821\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-tasks:15.0.1] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\play-services-tasks-15.0.1.aar\5b076442cd7749d629b0b78e74c85821\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-basement:15.0.1] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\play-services-basement-15.0.1.aar\b17f09b1e7c010102aeaa4ba491cad18\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-basement:15.0.1] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\play-services-basement-15.0.1.aar\b17f09b1e7c010102aeaa4ba491cad18\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:recyclerview-v7:26.0.2] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-26.0.2.aar\9940fdc1389597896035b6775ce33eb5\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:recyclerview-v7:26.0.2] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-26.0.2.aar\9940fdc1389597896035b6775ce33eb5\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-v4:27.1.1] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\support-v4-27.1.1.aar\4d4ab618ad1bb66f6a3ca81433314501\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-v4:27.1.1] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\support-v4-27.1.1.aar\4d4ab618ad1bb66f6a3ca81433314501\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-media-compat:27.1.1] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\support-media-compat-27.1.1.aar\0844d39fb65a418f3dca0766b7534ce5\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-media-compat:27.1.1] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\support-media-compat-27.1.1.aar\0844d39fb65a418f3dca0766b7534ce5\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-fragment:27.1.1] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\support-fragment-27.1.1.aar\cec58ddc5af969815ba504768efbb1ba\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-fragment:27.1.1] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\support-fragment-27.1.1.aar\cec58ddc5af969815ba504768efbb1ba\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:27.1.1] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\support-core-ui-27.1.1.aar\2272b920a7ea185fba7680442873c343\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:27.1.1] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\support-core-ui-27.1.1.aar\2272b920a7ea185fba7680442873c343\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:27.1.1] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\support-core-utils-27.1.1.aar\e3d4902375318617d00a30643088d206\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:27.1.1] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\support-core-utils-27.1.1.aar\e3d4902375318617d00a30643088d206\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:percent:26.0.2] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\percent-26.0.2.aar\9650dac7d0402b38162d4659aeed552c\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:percent:26.0.2] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\percent-26.0.2.aar\9650dac7d0402b38162d4659aeed552c\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:27.1.1] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\support-compat-27.1.1.aar\90539bc398020fde958e023b1866ee31\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:27.1.1] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\support-compat-27.1.1.aar\90539bc398020fde958e023b1866ee31\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata-core:1.1.0] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\livedata-core-1.1.0.aar\4665ba3a5e6ade57706253d30d73894d\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata-core:1.1.0] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\livedata-core-1.1.0.aar\4665ba3a5e6ade57706253d30d73894d\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:viewmodel:1.1.0] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\viewmodel-1.1.0.aar\ca61da4bb603e67bab82067e949c9d6d\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:viewmodel:1.1.0] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\viewmodel-1.1.0.aar\ca61da4bb603e67bab82067e949c9d6d\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:runtime:1.1.0] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\5f017f0ea0552a473cec2171b6f98b0e\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:runtime:1.1.0] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\5f017f0ea0552a473cec2171b6f98b0e\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.core:runtime:1.1.0] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\4f135941087cc96e4c2641ea73c358bd\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.core:runtime:1.1.0] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\4f135941087cc96e4c2641ea73c358bd\AndroidManifest.xml:20:5-44
+INJECTED from C:\Users\Compact\Documents\GitHub\team_senior\Resources\JumpingJack\Wearable\src\main\AndroidManifest.xml:20:4-21:46
+INJECTED from C:\Users\Compact\Documents\GitHub\team_senior\Resources\JumpingJack\Wearable\src\main\AndroidManifest.xml:20:4-21:46
+	android:targetSdkVersion
+		ADDED from C:\Users\Compact\Documents\GitHub\team_senior\Resources\JumpingJack\Wearable\src\main\AndroidManifest.xml:21:14-43
+		INJECTED from C:\Users\Compact\Documents\GitHub\team_senior\Resources\JumpingJack\Wearable\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Compact\Documents\GitHub\team_senior\Resources\JumpingJack\Wearable\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		ADDED from C:\Users\Compact\Documents\GitHub\team_senior\Resources\JumpingJack\Wearable\src\main\AndroidManifest.xml:20:14-40
+		INJECTED from C:\Users\Compact\Documents\GitHub\team_senior\Resources\JumpingJack\Wearable\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Compact\Documents\GitHub\team_senior\Resources\JumpingJack\Wearable\src\main\AndroidManifest.xml
+uses-feature#android.hardware.type.watch
+ADDED from C:\Users\Compact\Documents\GitHub\team_senior\Resources\JumpingJack\Wearable\src\main\AndroidManifest.xml:23:5-64
+	android:name
+		ADDED from C:\Users\Compact\Documents\GitHub\team_senior\Resources\JumpingJack\Wearable\src\main\AndroidManifest.xml:23:19-61
+uses-permission#android.permission.VIBRATE
+ADDED from C:\Users\Compact\Documents\GitHub\team_senior\Resources\JumpingJack\Wearable\src\main\AndroidManifest.xml:25:5-65
+	android:name
+		ADDED from C:\Users\Compact\Documents\GitHub\team_senior\Resources\JumpingJack\Wearable\src\main\AndroidManifest.xml:25:22-63
+application
+ADDED from C:\Users\Compact\Documents\GitHub\team_senior\Resources\JumpingJack\Wearable\src\main\AndroidManifest.xml:27:5-45:19
+MERGED from [com.google.android.gms:play-services-wearable:15.0.1] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\play-services-wearable-15.0.1.aar\c644ca3e8f63680b83322f70413236a3\AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-wearable:15.0.1] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\play-services-wearable-15.0.1.aar\c644ca3e8f63680b83322f70413236a3\AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.support:wearable:2.3.0] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\wearable-2.3.0.aar\9e8cd1acd88899f84bb8dc64ff7a8718\AndroidManifest.xml:9:5-13:19
+MERGED from [com.google.android.support:wearable:2.3.0] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\wearable-2.3.0.aar\9e8cd1acd88899f84bb8dc64ff7a8718\AndroidManifest.xml:9:5-13:19
+MERGED from [com.google.android.gms:play-services-base:15.0.1] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\play-services-base-15.0.1.aar\0f9ef6f0b5cc052452e766759f7e1397\AndroidManifest.xml:22:5-27:19
+MERGED from [com.google.android.gms:play-services-base:15.0.1] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\play-services-base-15.0.1.aar\0f9ef6f0b5cc052452e766759f7e1397\AndroidManifest.xml:22:5-27:19
+MERGED from [com.google.android.gms:play-services-tasks:15.0.1] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\play-services-tasks-15.0.1.aar\5b076442cd7749d629b0b78e74c85821\AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-tasks:15.0.1] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\play-services-tasks-15.0.1.aar\5b076442cd7749d629b0b78e74c85821\AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-basement:15.0.1] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\play-services-basement-15.0.1.aar\b17f09b1e7c010102aeaa4ba491cad18\AndroidManifest.xml:22:5-26:19
+MERGED from [com.google.android.gms:play-services-basement:15.0.1] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\play-services-basement-15.0.1.aar\b17f09b1e7c010102aeaa4ba491cad18\AndroidManifest.xml:22:5-26:19
+MERGED from [com.android.support:recyclerview-v7:26.0.2] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-26.0.2.aar\9940fdc1389597896035b6775ce33eb5\AndroidManifest.xml:22:5-26:19
+MERGED from [com.android.support:recyclerview-v7:26.0.2] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-26.0.2.aar\9940fdc1389597896035b6775ce33eb5\AndroidManifest.xml:22:5-26:19
+MERGED from [com.android.support:percent:26.0.2] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\percent-26.0.2.aar\9650dac7d0402b38162d4659aeed552c\AndroidManifest.xml:22:5-26:19
+MERGED from [com.android.support:percent:26.0.2] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\percent-26.0.2.aar\9650dac7d0402b38162d4659aeed552c\AndroidManifest.xml:22:5-26:19
+	android:label
+		ADDED from C:\Users\Compact\Documents\GitHub\team_senior\Resources\JumpingJack\Wearable\src\main\AndroidManifest.xml:30:13-45
+	android:icon
+		ADDED from C:\Users\Compact\Documents\GitHub\team_senior\Resources\JumpingJack\Wearable\src\main\AndroidManifest.xml:29:13-49
+	android:allowBackup
+		ADDED from C:\Users\Compact\Documents\GitHub\team_senior\Resources\JumpingJack\Wearable\src\main\AndroidManifest.xml:28:13-39
+	android:theme
+		ADDED from C:\Users\Compact\Documents\GitHub\team_senior\Resources\JumpingJack\Wearable\src\main\AndroidManifest.xml:31:13-69
+meta-data#com.google.android.wearable.standalone
+ADDED from C:\Users\Compact\Documents\GitHub\team_senior\Resources\JumpingJack\Wearable\src\main\AndroidManifest.xml:33:9-35:36
+	android:value
+		ADDED from C:\Users\Compact\Documents\GitHub\team_senior\Resources\JumpingJack\Wearable\src\main\AndroidManifest.xml:35:13-33
+	android:name
+		ADDED from C:\Users\Compact\Documents\GitHub\team_senior\Resources\JumpingJack\Wearable\src\main\AndroidManifest.xml:34:13-66
+activity#com.example.android.wearable.jumpingjack.MainActivity
+ADDED from C:\Users\Compact\Documents\GitHub\team_senior\Resources\JumpingJack\Wearable\src\main\AndroidManifest.xml:37:9-44:20
+	android:label
+		ADDED from C:\Users\Compact\Documents\GitHub\team_senior\Resources\JumpingJack\Wearable\src\main\AndroidManifest.xml:39:17-49
+	android:name
+		ADDED from C:\Users\Compact\Documents\GitHub\team_senior\Resources\JumpingJack\Wearable\src\main\AndroidManifest.xml:38:17-45
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from C:\Users\Compact\Documents\GitHub\team_senior\Resources\JumpingJack\Wearable\src\main\AndroidManifest.xml:40:13-43:29
+action#android.intent.action.MAIN
+ADDED from C:\Users\Compact\Documents\GitHub\team_senior\Resources\JumpingJack\Wearable\src\main\AndroidManifest.xml:41:17-68
+	android:name
+		ADDED from C:\Users\Compact\Documents\GitHub\team_senior\Resources\JumpingJack\Wearable\src\main\AndroidManifest.xml:41:25-66
+category#android.intent.category.LAUNCHER
+ADDED from C:\Users\Compact\Documents\GitHub\team_senior\Resources\JumpingJack\Wearable\src\main\AndroidManifest.xml:42:17-76
+	android:name
+		ADDED from C:\Users\Compact\Documents\GitHub\team_senior\Resources\JumpingJack\Wearable\src\main\AndroidManifest.xml:42:27-74
+uses-library#com.google.android.wearable
+ADDED from [com.google.android.support:wearable:2.3.0] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\wearable-2.3.0.aar\9e8cd1acd88899f84bb8dc64ff7a8718\AndroidManifest.xml:10:9-12:40
+	android:required
+		ADDED from [com.google.android.support:wearable:2.3.0] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\wearable-2.3.0.aar\9e8cd1acd88899f84bb8dc64ff7a8718\AndroidManifest.xml:12:13-37
+	android:name
+		ADDED from [com.google.android.support:wearable:2.3.0] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\wearable-2.3.0.aar\9e8cd1acd88899f84bb8dc64ff7a8718\AndroidManifest.xml:11:13-55
+activity#com.google.android.gms.common.api.GoogleApiActivity
+ADDED from [com.google.android.gms:play-services-base:15.0.1] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\play-services-base-15.0.1.aar\0f9ef6f0b5cc052452e766759f7e1397\AndroidManifest.xml:23:9-26:75
+	android:exported
+		ADDED from [com.google.android.gms:play-services-base:15.0.1] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\play-services-base-15.0.1.aar\0f9ef6f0b5cc052452e766759f7e1397\AndroidManifest.xml:25:13-37
+	android:theme
+		ADDED from [com.google.android.gms:play-services-base:15.0.1] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\play-services-base-15.0.1.aar\0f9ef6f0b5cc052452e766759f7e1397\AndroidManifest.xml:26:13-72
+	android:name
+		ADDED from [com.google.android.gms:play-services-base:15.0.1] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\play-services-base-15.0.1.aar\0f9ef6f0b5cc052452e766759f7e1397\AndroidManifest.xml:24:13-79
+meta-data#com.google.android.gms.version
+ADDED from [com.google.android.gms:play-services-basement:15.0.1] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\play-services-basement-15.0.1.aar\b17f09b1e7c010102aeaa4ba491cad18\AndroidManifest.xml:23:9-25:69
+	android:value
+		ADDED from [com.google.android.gms:play-services-basement:15.0.1] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\play-services-basement-15.0.1.aar\b17f09b1e7c010102aeaa4ba491cad18\AndroidManifest.xml:25:13-66
+	android:name
+		ADDED from [com.google.android.gms:play-services-basement:15.0.1] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\play-services-basement-15.0.1.aar\b17f09b1e7c010102aeaa4ba491cad18\AndroidManifest.xml:24:13-58
+meta-data#android.support.VERSION
+ADDED from [com.android.support:recyclerview-v7:26.0.2] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-26.0.2.aar\9940fdc1389597896035b6775ce33eb5\AndroidManifest.xml:23:9-25:38
+MERGED from [com.android.support:percent:26.0.2] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\percent-26.0.2.aar\9650dac7d0402b38162d4659aeed552c\AndroidManifest.xml:23:9-25:38
+MERGED from [com.android.support:percent:26.0.2] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\percent-26.0.2.aar\9650dac7d0402b38162d4659aeed552c\AndroidManifest.xml:23:9-25:38
+	android:value
+		ADDED from [com.android.support:recyclerview-v7:26.0.2] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-26.0.2.aar\9940fdc1389597896035b6775ce33eb5\AndroidManifest.xml:25:13-35
+	android:name
+		ADDED from [com.android.support:recyclerview-v7:26.0.2] C:\Users\Compact\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-26.0.2.aar\9940fdc1389597896035b6775ce33eb5\AndroidManifest.xml:24:13-51
