@@ -1,18 +1,18 @@
 <resources>
     <string name="app_name">MobvoiApiDemo</string>
-    <string name="title_1">"数据传输"</string>
-    <string name="title_2">"传感器"</string>
-    <string name="title_3">"地理位置"</string>
-    <string name="title_4">"健康数据"</string>
-    <string name="title_5">"天气"</string>
-    <string name="title_6">"手势"</string>
-    <string name="title_7">"语音识别"</string>
-    <string name="title_8">"语音合成"</string>
-    <string name="title_9">"语义"</string>
-    <string name="title_10">"搜索"</string>
-    <string name="title_11">"快捷卡片"</string>
-    <string name="title_12">"挠挠"</string>
-    <string name="title_13">"UI库demo"</string>
+    <string name="title_1">"DataTransferActivity"</string>
+    <string name="title_2">"SensorActivity"</string>
+    <string name="title_3">"GeoActivity"</string>
+    <string name="title_4">"StepActivity"</string>
+    <string name="title_5">"WeatherActivity"</string>
+    <string name="title_6">"GestureActivity"</string>
+    <string name="title_7">"VoiceInputActivity"</string>
+    <string name="title_8">"Text2VoiceActivity"</string>
+    <string name="title_9">"SemanticActivity"</string>
+    <string name="title_10">"SearchActivity"</string>
+    <string name="title_11">"CardActivity"</string>
+    <string name="title_12">"NaonaoActivity"</string>
+    <string name="title_13">"UiActivity"</string>
     <string name="details">up to date.</string>
     <string name="data">Data Transfer</string>
     <!-- data layer -->
