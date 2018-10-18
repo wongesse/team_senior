@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="bottom">
+
+    <TableRow>
+
+        <Button
+            android:id="@+id/help_button"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_weight="1"
+            android:text="@string/help" />
+
+    </TableRow>
+
+    <TableRow>
+
+        <Button
+            android:id="@+id/add_contact_button"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_weight="1"
+            android:text="@string/add_contact" />
+
+    </TableRow>
+
+    <TableRow>
+
+        <Button
+            android:id="@+id/edit_contact_button"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_weight="1"
+            android:text="@string/edit_contact" />
+    </TableRow>
+
+    <TableRow>
+
+        <Button
+            android:id="@+id/settings_button"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_weight="1"
+            android:text="@string/settings" />
+    </TableRow>
+</TableLayout>
