@@ -13,9 +13,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 public class MainActivity extends AppCompatActivity implements ListView.OnItemClickListener {
+//public class MainActivity extends Activity {
     /**
      * The collection of all samples in the app. This gets instantiated in {@link
      * #onCreate(android.os.Bundle)} because the {@link Sample} constructor needs access to {@link
@@ -25,31 +27,31 @@ public class MainActivity extends AppCompatActivity implements ListView.OnItemCl
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.front_screen);
 
-        // Instantiate the list of samples.
-        mSamples = new Sample[]{
-                new Sample(R.string.title_1, DataTransferActivity.class),
-                new Sample(R.string.title_2, SensorActivity.class),
-                new Sample(R.string.title_3, GeoActivity.class),
-                new Sample(R.string.title_4, StepActivity.class),
-                new Sample(R.string.title_5, WeatherActivity.class),
-                new Sample(R.string.title_6, GestureActivity.class),
-                new Sample(R.string.title_7, VoiceInputActivity.class),
-                new Sample(R.string.title_8, Text2VoiceActivity.class),
-                new Sample(R.string.title_9, SemanticActivity.class),
-                new Sample(R.string.title_10, SearchActivity.class),
-                new Sample(R.string.title_11, CardActivity.class),
-                new Sample(R.string.title_12, NaonaoActivity.class),
-                new Sample(R.string.title_13, UiActivity.class),
-        };
+        final Button help_button = findViewById(R.id.help_button);
+        help_button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Code here executes on main thread after user presses button
+                startActivity(new Intent(MainActivity.this, CardActivity.class));
+            }
+        });
 
-        ListView listView = (ListView) findViewById(android.R.id.list);
-        listView.setAdapter(new ArrayAdapter<Sample>(this,
-                android.R.layout.simple_list_item_1,
-                android.R.id.text1,
-                mSamples));
-        listView.setOnItemClickListener(this);
+        final Button settings_button = findViewById(R.id.settings_button);
+        settings_button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Code here executes on main thread after user presses button
+                startActivity(new Intent(MainActivity.this, CardActivity.class));
+            }
+        });
+
+
+//        ListView listView = (ListView) findViewById(android.R.id.list);
+//        listView.setAdapter(new ArrayAdapter<Sample>(this,
+//                android.R.layout.simple_list_item_1,
+//                android.R.id.text1,
+//                mSamples));
+//        listView.setOnItemClickListener(this);
     }
 
     @Override
