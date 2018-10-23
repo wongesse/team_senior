@@ -37,6 +37,14 @@ public class MainActivity extends AppCompatActivity implements ListView.OnItemCl
             }
         });
 
+        final Button add_button = findViewById(R.id.add_contact_button);
+        help_button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Code here executes on main thread after user presses button
+                // startActivity(new Intent(MainActivity.this, CardActivity.class));
+            }
+        });
+
         final Button settings_button = findViewById(R.id.settings_button);
         settings_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
