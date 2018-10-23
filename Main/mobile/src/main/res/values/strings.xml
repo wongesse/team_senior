@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MobvoiApiDemo</string>
+    <string name="app_name">Guardian Angel</string>
     <string name="title_1">"DataTransferActivity"</string>
     <string name="title_2">"SensorActivity"</string>
     <string name="title_3">"GeoActivity"</string>
