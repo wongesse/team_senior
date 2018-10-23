@@ -41,7 +41,7 @@ public class HelpScreen extends Activity implements Handler.Callback {
     @Override
     public boolean handleMessage(Message msg) {
         mHandler.sendEmptyMessageDelayed(0, DURATION);
-        updateTime(); 
+        updateTime();
         return true;
     }
 }

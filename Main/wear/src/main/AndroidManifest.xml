@@ -2,9 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mobvoi.ticwear.mobvoiapidemo">
 
-    <uses-sdk
-        android:minSdkVersion="20"
-        android:targetSdkVersion="22" />
+    <uses-sdk android:targetSdkVersion="22" />
 
     <uses-feature android:name="android.hardware.type.watch" />
 
