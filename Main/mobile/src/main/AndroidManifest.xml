@@ -91,6 +91,11 @@
             android:label="@string/title_activity_ui"
             android:parentActivityName=".MainActivity"
             android:uiOptions="splitActionBarWhenNarrow" />
+        <activity
+            android:name=".AddContact"
+            android:label="AddContact"
+            android:parentActivityName=".MainActivity"
+            android:uiOptions="splitActionBarWhenNarrow" />
     </application>
 
 </manifest>
