@@ -96,6 +96,16 @@
             android:label="AddContact"
             android:parentActivityName=".MainActivity"
             android:uiOptions="splitActionBarWhenNarrow" />
+        <activity
+            android:name=".HelpScreen"
+            android:label="HelpScreen"
+            android:parentActivityName=".MainActivity"
+            android:uiOptions="splitActionBarWhenNarrow" />
+        <activity
+            android:name=".SettingsScreen"
+            android:label="SettingsScreen"
+            android:parentActivityName=".MainActivity"
+            android:uiOptions="splitActionBarWhenNarrow" />
     </application>
 
 </manifest>

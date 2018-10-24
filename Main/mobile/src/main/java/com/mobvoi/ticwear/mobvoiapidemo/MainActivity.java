@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements ListView.OnItemCl
         help_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Code here executes on main thread after user presses button
-                startActivity(new Intent(MainActivity.this, CardActivity.class));
+                startActivity(new Intent(MainActivity.this, HelpScreen.class));
             }
         });
 
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements ListView.OnItemCl
         settings_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Code here executes on main thread after user presses button
-                startActivity(new Intent(MainActivity.this, CardActivity.class));
+                startActivity(new Intent(MainActivity.this, SettingsScreen.class));
             }
         });
 
