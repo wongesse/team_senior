@@ -9,8 +9,8 @@ import android.util.Log;
 public class FirstActivity extends Activity implements WearableListView.ClickListener {
     private static final String TAG = "FirstActivity";
     // Sample dataset for the list
-    private final String[] mElements = {"数据传输", "传感器", "地理位置", "健康数据", "天气", "手势", "语音识别",
-            "语音合成", "语义", "搜索", "快捷卡片", "挠挠", "UI库Demo"};
+    private final String[] mElements = {"Data Transfer", "Sensor", "Location", "Step Count", "Weather", "Gesture", "Start Voice",
+            "Text2Voice", "Warning", "Start Search", "Time", "Gestures", "UI DEMO"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

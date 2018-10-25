@@ -1,15 +1,29 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'test'
+            keyPassword '123456'
+            storeFile file('C:/Users/Admin/Documents/GitHub/team_senior/test-key - Copy.jks')
+            storePassword '123456'
+        }
+    }
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion '28.0.2'
-
     defaultConfig {
         applicationId "com.mobvoi.ticwear.mobvoiapidemo"
         minSdkVersion 20
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
+    }
+    buildTypes {
+        debug {
+        }
+        release {
+            signingConfig signingConfigs.config
+        }
     }
 }
 

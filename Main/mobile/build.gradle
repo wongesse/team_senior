@@ -2,9 +2,16 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.ticwear.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'test'
+            keyPassword '123456'
+            storeFile file('C:/Users/Admin/Documents/GitHub/team_senior/test-key.jks')
+            storePassword '123456'
+        }
+    }
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion '28.0.2'
-
     defaultConfig {
         applicationId "com.mobvoi.ticwear.mobvoiapidemo"
         minSdkVersion 18
@@ -16,6 +23,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
     }
 }
@@ -25,8 +33,6 @@ dependencies {
     compile "com.ticwear:mobvoi-api:${rootProject.ext.mobvoiApiVersion}"
     compile "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
     compile "com.android.support:support-v4:${rootProject.ext.supportLibVersion}"
-
     testCompile 'junit:junit:4.12'
-
     wearApp project(':wear')
 }
