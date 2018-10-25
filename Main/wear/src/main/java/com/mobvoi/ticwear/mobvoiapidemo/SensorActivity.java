@@ -122,7 +122,9 @@ public class SensorActivity extends Activity implements ConnectionCallbacks,
         float z = event.values[2];
         new StartCheckTask().execute();
         String message = x + "," + y + "," + z;
+        Log.d(TAG, message);
         byte[] data = message.getBytes();
+
         if (mConnectedNode != null && mMobvoiApiClient != null && mMobvoiApiClient.isConnected()) {
             Wearable.MessageApi.sendMessage(
                     mMobvoiApiClient, mConnectedNode, "/accelerometer", data)
@@ -141,7 +143,7 @@ public class SensorActivity extends Activity implements ConnectionCallbacks,
                             }
                     );
         } else {
-            Log.e(TAG, "node null or client null or not connected. ");
+            //Log.e(TAG, "node null or client null or not connected. ");
         }
     }
 
