@@ -110,6 +110,12 @@
             android:label="SettingsScreen"
             android:parentActivityName=".MainActivity"
             android:uiOptions="splitActionBarWhenNarrow" />
+        <!--<service android:name=".FunctionTestService" >-->
+            <!--<intent-filter>-->
+                <!--<action android:name="com.mobvoi.android.wearable.BIND_LISTENER" />-->
+            <!--</intent-filter>-->
+        <!--</service>-->
+
     </application>
 
 </manifest>
