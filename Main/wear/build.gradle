@@ -1,16 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
-    signingConfigs {
-        config {
-            keyAlias 'test'
-            keyPassword '123456'
-            storeFile file('C:/Users/Admin/Documents/GitHub/team_senior/test-key - Copy.jks')
-            storePassword '123456'
-        }
+    lintOptions {
+
+        checkReleaseBuilds false
+
     }
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion '28.0.2'
+
     defaultConfig {
         applicationId "com.mobvoi.ticwear.mobvoiapidemo"
         minSdkVersion 20
@@ -18,18 +16,10 @@ android {
         versionCode 1
         versionName "1.0"
     }
-    buildTypes {
-        debug {
-        }
-        release {
-            signingConfig signingConfigs.config
-        }
-    }
 }
 
 dependencies {
-    compile "com.ticwear:mobvoi-api:1.1.1"
-    compile 'com.google.android.gms:play-services-wearable:10.0.0'
+    compile "com.ticwear:mobvoi-api:${rootProject.ext.mobvoiApiVersion}"
     compile 'com.google.android.support:wearable:1.1.0'
     compile 'com.alibaba:fastjson:1.2.7'
 }

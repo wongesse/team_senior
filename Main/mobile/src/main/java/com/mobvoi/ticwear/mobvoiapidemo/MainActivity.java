@@ -8,13 +8,18 @@ package com.mobvoi.ticwear.mobvoiapidemo;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.telephony.SmsManager;
+import android.widget.RelativeLayout;
+import android.graphics.Color;
 
 public class MainActivity extends AppCompatActivity implements ListView.OnItemClickListener {
 //public class MainActivity extends Activity {
@@ -23,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements ListView.OnItemCl
      * #onCreate(android.os.Bundle)} because the {@link Sample} constructor needs access to {@link
      * android.content.res.Resources}.
      */
+
     private static Sample[] mSamples;
 
     public void onCreate(Bundle savedInstanceState) {
@@ -60,6 +66,37 @@ public class MainActivity extends AppCompatActivity implements ListView.OnItemCl
 //                android.R.id.text1,
 //                mSamples));
 //        listView.setOnItemClickListener(this);
+        drawBackground();
+    }
+
+    public void drawBackground() {
+        RelativeLayout relativeLayout; // for gradient background
+        relativeLayout = (RelativeLayout)findViewById(R.id.background);
+        int[] colors = new int[]{Color.parseColor("#494391"), Color.parseColor("#7c8cf4")};
+        GradientDrawable gradientDrawable = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors);
+        relativeLayout.setBackgroundDrawable(gradientDrawable);
+    }
+
+    public void sendSMS(String phoneNumber, String message) {
+        try {
+            SmsManager smsManager = SmsManager.getDefault();
+            smsManager.sendTextMessage(phoneNumber, null, message, null, null);
+        } catch (Exception ex) {
+            String errorMessage = "[ERROR] " + ex.toString();
+            Log.d("MainActivity", errorMessage);
+        }
+    }
+
+    public void sendSMSander(View view) {
+        String latitude = "37.02234631";
+        String longitude = "32.10154542";
+        String message = "I have fallen at (" + latitude + ", " + longitude + ")";
+        sendSMS("11234561234", message);
+        //Log.d("MainActivity", "ANDER here");
+    }
+
+    public void readContacts(View view) {
+        Log.d("MainActivity", "ANDER readContacts");
     }
 
     @Override
