@@ -84,6 +84,7 @@ public class SensorActivity extends Activity implements ConnectionCallbacks,
 
     @Override
     public void onConnectionSuspended(int cause) {
+        Log.e(TAG, "Mobile Service connection suspended. cause " + cause);
     }
 
     @Override
@@ -143,7 +144,7 @@ public class SensorActivity extends Activity implements ConnectionCallbacks,
                             }
                     );
         } else {
-            //Log.e(TAG, "node null or client null or not connected. ");
+            Log.e(TAG, "node null or client null or not connected. ");
         }
     }
 
@@ -167,9 +168,8 @@ public class SensorActivity extends Activity implements ConnectionCallbacks,
             for (String node : nodes) {
                 if (node != null) {
                     mConnectedNode = node;
-                    //Log.d(TAG, "The connected node is " + node);
+                    Log.d(TAG, "The connected node is " + node);
                 }
-
             }
             return true;
         }

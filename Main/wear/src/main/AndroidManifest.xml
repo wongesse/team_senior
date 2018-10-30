@@ -40,9 +40,7 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" />
-        <activity
-            android:name=".SensorActivity"
-            android:label="@string/title_activity_sensor" />
+
         <activity
             android:name=".LocationActivity"
             android:label="@string/title_activity_geo" />
@@ -123,6 +121,12 @@
         <activity
             android:name=".WarnActivity"
             android:label="@string/title_activity_warn"></activity>
+
+        <service android:name=".SensorActivity" >
+            <intent-filter>
+                <action android:name="com.mobvoi.android.wearable.BIND_LISTENER" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

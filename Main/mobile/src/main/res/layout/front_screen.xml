@@ -21,7 +21,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/start_sensor"
         android:layout_centerHorizontal="true"
-        android:text="az"
         android:textSize="25sp" />
 
 
@@ -31,7 +30,6 @@
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/start_sensor"
         android:layout_below="@+id/sensor_textx"
-        android:text="ay"
         android:textSize="25sp" />
 
     <TextView
@@ -40,7 +38,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/sensor_texty"
         android:layout_centerHorizontal="true"
-        android:text="ay"
         android:textSize="25sp" />
 
     <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"

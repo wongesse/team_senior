@@ -39,12 +39,22 @@ public class SensorActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sensor);
+        setContentView(R.layout.front_screen);
         mSensorXTv = (TextView) findViewById(R.id.sensor_textx);
         mSensorYTv = (TextView) findViewById(R.id.sensor_texty);
         mSensorZTv = (TextView) findViewById(R.id.sensor_textz);
         mStartButton = (Button) findViewById(R.id.start_sensor);
-        mStartButton.setOnClickListener(this);
+        mStartButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (v.getId()) {
+                    case R.id.start_sensor: {
+                        new StartWearableActivityTask().execute();
+                    }
+                }
+                Log.e(TAG, "Button Clicked");
+            }
+        });
         mMobvoiApiClient = new MobvoiApiClient.Builder(this)
                 .addApi(Wearable.API)
                 .addConnectionCallbacks(this)
@@ -87,6 +97,12 @@ public class SensorActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     @Override
+    public void onClick(View v) {
+        new StartWearableActivityTask().execute();
+        Log.e(TAG, "Button Clicked");
+    }
+
+    @Override
     public void onPeerDisconnected(Node node) {
         Log.d(TAG, "Node Disconnected");
     }
@@ -105,16 +121,6 @@ public class SensorActivity extends AppCompatActivity implements View.OnClickLis
                     mSensorZTv.setText(getString(R.string.sensor_z) + xyz[2]);
                 }
             });
-        }
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.start_sensor: {
-                Log.d(TAG, "Button Clicked");
-                new StartWearableActivityTask().execute();
-            }
         }
     }
 

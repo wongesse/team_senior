@@ -111,11 +111,18 @@
             android:label="SettingsScreen"
             android:parentActivityName=".MainActivity"
             android:uiOptions="splitActionBarWhenNarrow" />
-        <!--<service android:name=".FunctionTestService" >-->
-            <!--<intent-filter>-->
-                <!--<action android:name="com.mobvoi.android.wearable.BIND_LISTENER" />-->
-            <!--</intent-filter>-->
-        <!--</service>-->
+
+        <service android:name=".SensorActivity" >
+            <intent-filter>
+                <action android:name="com.mobvoi.android.wearable.BIND_LISTENER" />
+            </intent-filter>
+        </service>
+
+        <service android:name="com.mobvoi.android.wearable.WearableListenerServiceGoogleImpl">
+            <intent-filter>
+                <action android:name="com.google.android.gms.wearable.BIND_LISTENER" />
+            </intent-filter>
+        </service>
 
     </application>
 
