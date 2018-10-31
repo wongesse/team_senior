@@ -28,36 +28,36 @@ public class FunctionTestService extends WearableListenerService {
     
     @Override
     public void onDataChanged(DataEventBuffer buffer) {
-        if (buffer != null && buffer.getCount() > 0) {
-            DataEvent e = buffer.get(0);
-            if (e.getDataItem() != null) {
-                DataItem item = e.getDataItem();
-                if (item.getData() != null && item.getData().length > 0) {
-                    Utils.setText(this, "receive",
-                            "" + Utils.getHashCode(item.getData()));
-                } else if (item.getAssets().containsKey("key")) {
-                    DataItemAsset a = item.getAssets().get("key");
-                    Wearable.DataApi.getFdForAsset(client, a).setResultCallback(
-                            new ResultCallback<DataApi.GetFdForAssetResult>() {
-                        @Override
-                        public void onResult(GetFdForAssetResult result) {
-                            if (result.getStatus().isSuccess()) {
-                                InputStream in = result.getInputStream();
-                                Utils.setText(FunctionTestService.this, "receive",
-                                        "" + Utils.readAll(in));
-                            }
-                        }
-                    });
-                }
-            }
-        }
+//        if (buffer != null && buffer.getCount() > 0) {
+//            DataEvent e = buffer.get(0);
+//            if (e.getDataItem() != null) {
+//                DataItem item = e.getDataItem();
+//                if (item.getData() != null && item.getData().length > 0) {
+//                    Utils.setText(this, "receive",
+//                            "" + Utils.getHashCode(item.getData()));
+//                } else if (item.getAssets().containsKey("key")) {
+//                    DataItemAsset a = item.getAssets().get("key");
+//                    Wearable.DataApi.getFdForAsset(client, a).setResultCallback(
+//                            new ResultCallback<DataApi.GetFdForAssetResult>() {
+//                        @Override
+//                        public void onResult(GetFdForAssetResult result) {
+//                            if (result.getStatus().isSuccess()) {
+//                                InputStream in = result.getInputStream();
+//                                Utils.setText(FunctionTestService.this, "receive",
+//                                        "" + Utils.readAll(in));
+//                            }
+//                        }
+//                    });
+//                }
+//            }
+//        }
     }
 
     @Override
     public void onMessageReceived(MessageEvent messageevent) {
-        if (messageevent != null && messageevent.getData() != null) {
-            Utils.setText(this, "receive", "" + Utils.getHashCode(messageevent.getData()));
-        }
+//        if (messageevent != null && messageevent.getData() != null) {
+//            Utils.setText(this, "receive", "" + Utils.getHashCode(messageevent.getData()));
+//        }
     }
     
 }

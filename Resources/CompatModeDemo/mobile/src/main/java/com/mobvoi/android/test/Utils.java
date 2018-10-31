@@ -11,7 +11,7 @@ import android.util.Log;
 
 public class Utils {
     
-    public static final String INTENT_TAG = "com.mobvoi.android.test.FunctionTestActivity";
+    public static final String INTENT_TAG = "com.mobvoi.android.test.SensorActivity";
     
     public static void setText(Context context, String key, String value) {
         Intent intent = new Intent(INTENT_TAG);
@@ -33,7 +33,7 @@ public class Utils {
                 }
                 if (len < 0) break;
             } catch (IOException e) {
-                Log.e(FunctionTestActivity.TAG, e.getMessage(), e);
+                Log.e(SensorActivity.TAG, e.getMessage(), e);
             }
         }
         return code;

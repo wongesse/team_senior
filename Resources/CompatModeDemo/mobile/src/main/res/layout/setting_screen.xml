@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="bottom">
+
+    <TableRow
+        android:id="@+id/tableRow1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal" >
+
+        <ToggleButton
+            android:id="@+id/haptic"
+            android:layout_width="0dip"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Haptic Feedback"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:textColor="#000000"/>
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/tableRow2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal" >
+
+        <ToggleButton
+            android:id="@+id/deaf"
+            android:layout_width="0dip"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Response Time"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:textColor="#000000"/>
+    </TableRow>
+    <TableRow
+        android:id="@+id/tableRow3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal" >
+
+        <ToggleButton
+            android:id="@+id/response"
+            android:layout_width="0dip"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Turn Off App"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:textColor="#000000"/>
+    </TableRow>
+
+    <TableRow>
+
+        <Button
+            android:id="@+id/help_button"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_weight="1"
+            android:text="return" />
+
+    </TableRow>
+
+
+</TableLayout>

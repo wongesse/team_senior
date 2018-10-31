@@ -54,9 +54,11 @@ public class FunctionTestService extends WearableListenerService {
     }
 
     @Override
-    public void onMessageReceived(MessageEvent messageevent) {
-        if (messageevent != null && messageevent.getData() != null) {
-            Utils.setText(this, "receive", "" + Utils.getHashCode(messageevent.getData()));
+    public void onMessageReceived(MessageEvent event) {
+        if (event.getPath().equals("/accelerometer")) {
+            byte[] data = event.getData();
+            final String SensorMessage = new String(data);
+            Utils.setText(this, "receive", "" + SensorMessage);
         }
     }
     

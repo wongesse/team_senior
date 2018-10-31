@@ -5,10 +5,15 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.TextView;
 
 import com.mobvoi.android.common.ConnectionResult;
@@ -20,8 +25,7 @@ import com.mobvoi.android.wearable.Node;
 import com.mobvoi.android.wearable.NodeApi;
 import com.mobvoi.android.wearable.Wearable;
 
-
-public class FunctionTestActivity extends Activity {
+public class FunctionTestActivity extends Activity implements SensorEventListener {
 
     public static final String TAG = "FunctionTest";
 
@@ -32,6 +36,8 @@ public class FunctionTestActivity extends Activity {
     private View button;
 
     private MobvoiApiClient client;
+    private SensorManager mSensorManager;
+    private Sensor mAccelerometer;
 
     private boolean connected = false;
 
@@ -69,6 +75,10 @@ public class FunctionTestActivity extends Activity {
         button = findViewById(R.id.startButton);
 
         initClient();
+        mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        mAccelerometer = mSensorManager.getDefaultSensor(
+                Sensor.TYPE_ACCELEROMETER
+        );
         Log.i(TAG, "init client finished.");
 
         Intent startIntent = new Intent(this, FunctionTestService.class);
@@ -85,47 +95,61 @@ public class FunctionTestActivity extends Activity {
                 }
             }
         };
+
         IntentFilter mFilter = new IntentFilter(Utils.INTENT_TAG);
         registerReceiver(receiver, mFilter);
         Log.i(TAG, "register receiver finished.");
 
-        button.setOnClickListener(new OnClickListener() {
+        Log.i(TAG, "set radio button listener finished.");
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        client.connect();
+        mSensorManager.registerListener(this, mAccelerometer,
+                SensorManager.SENSOR_DELAY_NORMAL);
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        //SENSOR DATA
+        float x = event.values[0];
+        float y = event.values[1];
+        float z = event.values[2];
+        final String message = x + "," + y + "," + z;
+        Log.d(TAG, message);
+        byte[] data = message.getBytes();
+
+        if (!connected) {
+            Log.i(TAG, "discard a request, connect : " + connected);
+            return;
+        }
+
+        final byte[] sendData = data;
+
+        Utils.setText(FunctionTestActivity.this, "send", message);
+
+        Wearable.NodeApi.getConnectedNodes(client).setResultCallback(new ResultCallback<NodeApi.GetConnectedNodesResult>() {
             @Override
-            public void onClick(View v) {
-                Log.i(TAG, "onclick, type = " + type);
-                if (!connected) {
-                    Log.i(TAG, "discard a request, connect : " + connected);
-                    return;
+            public void onResult(NodeApi.GetConnectedNodesResult result) {
+                Log.d(TAG, "send message with nodes (" + result.getNodes().size() + ") " + result.getNodes());
+                for (Node node : result.getNodes()) {
+                    Wearable.MessageApi.sendMessage(client, node.getId(), "/accelerometer", sendData).setResultCallback(
+                            new ResultCallback<MessageApi.SendMessageResult>() {
+                                @Override
+                                public void onResult(MessageApi.SendMessageResult result) {
+                                    if (result.getStatus().isSuccess()) {
+                                        Utils.setText(FunctionTestActivity.this, "send", message);
+                                    }
+                                }
+                            });
                 }
-                byte[] data = null;
-                String hashCode = "";
-                    data = Utils.getData(1000);
-                    final byte[] sendData = data;
-                    hashCode = "" + Utils.getHashCode(data);
-                    Utils.setText(FunctionTestActivity.this, "send", hashCode);
-                    final String fh = hashCode;
-                    Wearable.NodeApi.getConnectedNodes(client).setResultCallback(new ResultCallback<NodeApi.GetConnectedNodesResult>() {
-                        @Override
-                        public void onResult(NodeApi.GetConnectedNodesResult result) {
-                            Log.d(TAG, "send message with nodes (" + result.getNodes().size() + ") " + result.getNodes());
-                            for (Node node : result.getNodes()) {
-                                Wearable.MessageApi.sendMessage(client, node.getId(), "/function/message", sendData).setResultCallback(
-                                        new ResultCallback<MessageApi.SendMessageResult>() {
-                                            @Override
-                                            public void onResult(MessageApi.SendMessageResult result) {
-                                                if (result.getStatus().isSuccess()) {
-                                                    Utils.setText(FunctionTestActivity.this, "send", fh);
-                                                }
-                                            }
-                                        });
-                            }
-                        }
-                    });
-                    Log.i(TAG, "send a message.");
-                Log.i(TAG, "hashcode = " + hashCode);
             }
         });
-        Log.i(TAG, "set button listener finished.");
     }
 
 }

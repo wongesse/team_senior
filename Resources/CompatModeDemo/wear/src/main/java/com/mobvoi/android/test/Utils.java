@@ -38,21 +38,4 @@ public class Utils {
         }
         return code;
     }
-    
-    public static byte[] getData(int len) {
-        byte[] b = new byte[len];
-        for (int i = 0; i < len; i++) {
-            b[i] = (byte)(Math.random() * 256);
-        }
-        return b;
-    }
-    
-    public static int getHashCode(byte[] data) {
-        int code = 0;
-        for (byte b : data) {
-            code += b;
-        }
-        return code;
-    }
-
 }
