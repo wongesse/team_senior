@@ -8,26 +8,19 @@
     android:paddingTop="@dimen/activity_vertical_margin">
 
     <TextView
-        android:id="@+id/axText"
+        android:id="@+id/fallDetect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="26dp"
-        android:text="Acceleration in x:" />
-    <TextView
-        android:id="@+id/ayText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
         android:layout_marginTop="46dp"
-        android:text="Acceleration in y:" />
-    <TextView
-        android:id="@+id/azText"
+        android:textSize="18sp"
+        android:text="Fall Detection: Alive and Well" />
+
+
+    <Button
+        android:id="@+id/dismissAlert"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="66dp"
-        android:text="Acceleration in z:" />
+        android:text="False Alert" />
 
     <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"

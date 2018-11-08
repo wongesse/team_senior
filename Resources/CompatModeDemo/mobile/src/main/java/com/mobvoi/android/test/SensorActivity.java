@@ -16,11 +16,13 @@ import com.mobvoi.android.common.api.MobvoiApiClient;
 import com.mobvoi.android.common.api.MobvoiApiClient.ConnectionCallbacks;
 import com.mobvoi.android.wearable.Wearable;
 
+import java.text.DecimalFormat;
+
 public class SensorActivity extends Activity {
 
     public static final String TAG = "FunctionTest";
 
-    private TextView send, receive, ax, ay, az;
+    private TextView ax, ay, az, falldetect;
 
     private MobvoiApiClient client;
 
@@ -56,9 +58,18 @@ public class SensorActivity extends Activity {
         setContentView(R.layout.front_screen);
 
         //send = (TextView)findViewById(R.id.sendText);
-        ax = (TextView)findViewById(R.id.axText);
-        ay = (TextView)findViewById(R.id.ayText);
-        az = (TextView)findViewById(R.id.azText);
+        //ax = (TextView) findViewById(R.id.axText);
+        //ay = (TextView) findViewById(R.id.ayText);
+        //az = (TextView) findViewById(R.id.azText);
+        falldetect = (TextView) findViewById(R.id.fallDetect);
+
+        Button button = (Button) findViewById(R.id.dismissAlert);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                falldetect.setText("Fall Detection: I'm Gucci For Now");
+            }
+        });
 
         initClient();
         Log.i(TAG, "init client finished.");
@@ -66,19 +77,23 @@ public class SensorActivity extends Activity {
         Intent startIntent = new Intent(this, FunctionTestService.class);
         startService(startIntent);
 
+        String[] xyz;
         receiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 Bundle bundle = intent.getExtras();
-                if (bundle.containsKey("send")) {
-                    send.setText("S:" + bundle.getString("send"));
-                } else if (bundle.containsKey("receive")) {
-                    String temp = bundle.getString("receive");
-                    final String[] xyz = temp.split(",");
-                    ax.setText("Acceleration in x: " + xyz[0]);
-                    ay.setText("Acceleration in y: " + xyz[1]);
-                    az.setText("Acceleration in z: " + xyz[2]);
-                }
+                //if (bundle.containsKey("receive")) {
+                String temp = bundle.getString("receive");
+                //final String[] xyz = temp.split(",");
+                falldetect.setText("Fall Detection: **" + temp + "** OMG SEND HELP");
+                //ax.setText("Ax: " + xyz[0]);
+                //ay.setText("Ay: " + xyz[1]);
+                //az.setText("Az: " + xyz[2]);
+
+                //}
+//                else if (bundle.containsKey("send")) {
+//                    //send.setText("S:" + bundle.getString("send"));
+//                }
             }
         };
 
@@ -86,5 +101,4 @@ public class SensorActivity extends Activity {
         registerReceiver(receiver, mFilter);
         Log.i(TAG, "register receiver finished.");
     }
-
 }

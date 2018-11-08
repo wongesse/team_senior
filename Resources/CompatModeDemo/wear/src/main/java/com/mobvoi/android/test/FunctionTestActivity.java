@@ -5,16 +5,19 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import java.text.DecimalFormat;
 
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.view.WindowManager;
 
 import com.mobvoi.android.common.ConnectionResult;
 import com.mobvoi.android.common.api.MobvoiApiClient;
@@ -28,13 +31,6 @@ import com.mobvoi.android.wearable.Wearable;
 public class FunctionTestActivity extends Activity implements SensorEventListener {
 
     public static final String TAG = "FunctionTest";
-
-    private int type = 0;
-
-    private TextView send, receive;
-
-    private View button;
-
     private MobvoiApiClient client;
     private SensorManager mSensorManager;
     private Sensor mAccelerometer;
@@ -69,10 +65,7 @@ public class FunctionTestActivity extends Activity implements SensorEventListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_function_test);
-
-        send = (TextView)findViewById(R.id.sendText);
-        receive = (TextView)findViewById(R.id.receiveText);
-        button = findViewById(R.id.startButton);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         initClient();
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
@@ -89,9 +82,9 @@ public class FunctionTestActivity extends Activity implements SensorEventListene
             public void onReceive(Context context, Intent intent) {
                 Bundle bundle = intent.getExtras();
                 if (bundle.containsKey("send")) {
-                    send.setText("S:" + bundle.getString("send"));
+                    //send.setText("S:" + bundle.getString("send"));
                 } else if (bundle.containsKey("receive")) {
-                    receive.setText("R:" + bundle.getString("receive"));
+                    //receive.setText("R:" + bundle.getString("receive"));
                 }
             }
         };
@@ -107,49 +100,80 @@ public class FunctionTestActivity extends Activity implements SensorEventListene
         super.onResume();
         client.connect();
         mSensorManager.registerListener(this, mAccelerometer,
-                SensorManager.SENSOR_DELAY_NORMAL);
+                SensorManager.SENSOR_DELAY_UI);
     }
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
     }
 
+    boolean moIsMin = false;
+    boolean moIsMax = false;
+    long mlPreviousTime;
+    int i = 0;
     @Override
     public void onSensorChanged(SensorEvent event) {
         //SENSOR DATA
-        float x = event.values[0];
-        float y = event.values[1];
-        float z = event.values[2];
-        final String message = x + "," + y + "," + z;
-        Log.d(TAG, message);
-        byte[] data = message.getBytes();
+        double x = event.values[0];
+        double y = event.values[1];
+        double z = event.values[2];
+        double loAccelerationReader = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2));
 
         if (!connected) {
-            Log.i(TAG, "discard a request, connect : " + connected);
             return;
         }
 
-        final byte[] sendData = data;
+        if (loAccelerationReader <= 7.0) {
+            mlPreviousTime = System.currentTimeMillis();
+            Log.d(TAG, "Time prev: " + mlPreviousTime);
+            moIsMin = true;
+            Log.d(TAG, "Min: " + moIsMin);
+        }
 
-        Utils.setText(FunctionTestActivity.this, "send", message);
-
-        Wearable.NodeApi.getConnectedNodes(client).setResultCallback(new ResultCallback<NodeApi.GetConnectedNodesResult>() {
-            @Override
-            public void onResult(NodeApi.GetConnectedNodesResult result) {
-                Log.d(TAG, "send message with nodes (" + result.getNodes().size() + ") " + result.getNodes());
-                for (Node node : result.getNodes()) {
-                    Wearable.MessageApi.sendMessage(client, node.getId(), "/accelerometer", sendData).setResultCallback(
-                            new ResultCallback<MessageApi.SendMessageResult>() {
-                                @Override
-                                public void onResult(MessageApi.SendMessageResult result) {
-                                    if (result.getStatus().isSuccess()) {
-                                        Utils.setText(FunctionTestActivity.this, "send", message);
-                                    }
-                                }
-                            });
+        if (moIsMin) {
+            i++;
+            if (loAccelerationReader >= 40.0) {
+                long llCurrentTime = System.currentTimeMillis();
+                Log.d(TAG, "Time now: " + mlPreviousTime);
+                long llTimeDiff = llCurrentTime - mlPreviousTime;
+                Log.d(TAG, "Time diff: " + llTimeDiff);
+                if (llTimeDiff >= 40) {
+                    moIsMax = true;
+                    Log.d(TAG, "40: " + true);
                 }
             }
-        });
+        }
+
+        if (moIsMin && moIsMax) {
+            Log.e(TAG, "FALL DETECTED!");
+            final String message = "True";
+            final byte[] sendData = message.getBytes();
+
+            Utils.setText(FunctionTestActivity.this, "send", message);
+
+            Wearable.NodeApi.getConnectedNodes(client).setResultCallback(new ResultCallback<NodeApi.GetConnectedNodesResult>() {
+                @Override
+                public void onResult(NodeApi.GetConnectedNodesResult result) {
+                    //Log.d(TAG, "send message with nodes (" + result.getNodes().size() + ") " + result.getNodes());
+                    for (Node node : result.getNodes()) {
+                        Wearable.MessageApi.sendMessage(client, node.getId(), "/accelerometer", sendData).setResultCallback(
+                                new ResultCallback<MessageApi.SendMessageResult>() {
+                                    @Override
+                                    public void onResult(MessageApi.SendMessageResult result) {
+                                        if (result.getStatus().isSuccess()) {
+                                            Utils.setText(FunctionTestActivity.this, "send", message);
+                                        }
+                                    }
+                                });
+                    }
+                }
+            });
+
+            i = 0;
+            moIsMin = false;
+            moIsMax = false;
+        }
     }
+
 
 }
