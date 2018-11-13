@@ -12,6 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="46dp"
+
         android:textSize="18sp"
         android:text="Fall Detection: Alive and Well" />
 
@@ -20,13 +21,48 @@
         android:id="@+id/dismissAlert"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="1dp"
         android:text="False Alert" />
+
+    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/tableLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:paddingTop="100dp">
+        android:gravity="center_horizontal">
+
+        <!-- 2 columns -->
+        <TableRow
+            android:id="@+id/tableRow2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:padding="5dip">
+
+            <Button
+                android:id="@+id/sms_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="sendSMSander"
+                android:text="SMS"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/readcontacts_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="readContacts"
+                android:textSize="18sp"
+                android:text="Read Contact" />
+        </TableRow>
+    </TableLayout>
 
     <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
         android:gravity="bottom">
+
 
         <TableRow>
             <Button

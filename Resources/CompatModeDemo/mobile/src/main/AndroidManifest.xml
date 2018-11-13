@@ -30,6 +30,22 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".AddContact"
+            android:label="AddContact"
+            android:parentActivityName=".SensorActivity"
+            android:uiOptions="splitActionBarWhenNarrow" />
+        <activity
+            android:name=".HelpScreen"
+            android:label="HelpScreen"
+            android:parentActivityName=".SensorActivity"
+            android:uiOptions="splitActionBarWhenNarrow" />
+        <activity
+            android:name=".SettingsScreen"
+            android:label="SettingsScreen"
+            android:parentActivityName=".SensorActivity"
+            android:uiOptions="splitActionBarWhenNarrow" />
+
         <service android:name=".FunctionTestService" >
             <intent-filter>
                 <action android:name="com.mobvoi.android.wearable.BIND_LISTENER" />

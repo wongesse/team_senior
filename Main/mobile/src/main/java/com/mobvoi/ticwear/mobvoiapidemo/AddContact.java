@@ -201,6 +201,4 @@ public class AddContact extends AppCompatActivity {
         }
         return newPhoneNumber;
     }
-
-
 }
