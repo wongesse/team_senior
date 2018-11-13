@@ -1,20 +1,27 @@
 package com.mobvoi.ticwear.mobvoiapidemo;
 
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.util.Log;
 import android.widget.SimpleCursorAdapter;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public class AddContact extends AppCompatActivity {
     //ListView l1;
@@ -50,8 +57,8 @@ public class AddContact extends AppCompatActivity {
                 String name = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
                 String phoneNumber = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
                 phoneNumber = parsePhoneNumber(phoneNumber);
-                String m = name + " - " + phoneNumber;
-                Log.d("AddContact", m);
+                String m = name + " --- " + phoneNumber;
+                Log.d("[debug]", m);
                 writeContactToFile(m);
             }
         });
@@ -76,22 +83,102 @@ public class AddContact extends AppCompatActivity {
         */
     }
 
-    public void get(View v) {
-
+    private void alert(String title, String message, boolean isConfirmation) {
+        // Add paramter that is a function to be called if the confirmation dialog is sucessful
+        final Context context = this;
+        AlertDialog.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder = new AlertDialog.Builder(context, android.R.style.Theme_Material_Dialog_Alert);
+        } else {
+            builder = new AlertDialog.Builder(context);
+        }
+        if (isConfirmation) {
+            builder.setTitle(title)
+                    .setMessage(message)
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // continue with delete
+                        }
+                    })
+                    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // do nothing
+                        }
+                    })
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+        } else {
+            builder.setTitle(title)
+                    .setMessage(message)
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // continue with delete
+                        }
+                    })
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+        }
 
     }
 
+    public void get(View v) {}
+
+    private boolean contactIsUnique(String data) {
+        File file = new File("/data/data/com.mobvoi.ticwear.mobvoiapidemo/files/ga_contacts");
+        try {
+            FileInputStream stream = new FileInputStream(file);
+
+            InputStream is = stream;
+            BufferedReader rd = new BufferedReader(new InputStreamReader(is,"UTF-8"));
+            String line;
+
+            while ( (line = rd.readLine()) != null ){
+                if(line.matches(data)){ //--regex of what to search--
+                    Log.d("AddContact", "Contact is NOT unique!");
+                    return false;
+                }
+            }
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     private void writeContactToFile(String data) {
+        File contactsFile = new File("/data/data/com.mobvoi.ticwear.mobvoiapidemo/files/ga_contacts");
+        if (!contactIsUnique(data) && contactsFile.exists()) {
+            /* we don't want to add duplicate contacts */
+            String[] delimiterTokens = data.split(" --- ");
+            String name = delimiterTokens[0];
+            alert("Duplicate contact", name + " is already selected to receive emergency messages.", false);
+            return;
+        }
         String filename = "ga_contacts";
-        String fileContents = data;
+        String fileContents = data + "\n";
         FileOutputStream outputStream;
 
-        try {
-            outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
-            outputStream.write(fileContents.getBytes());
-            outputStream.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+        Log.d("[debug]", "HERE");
+        if (!contactsFile.exists()) {
+            try {
+                Log.d("[debug]", "Creating new file!");
+                /* writes to /data/data/com.mobvoi.ticwear.mobvoiapidemo/files/ga_contacts */
+                outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+                outputStream.write(fileContents.getBytes());
+                outputStream.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                Log.d("[debug]", "Appending to file!");
+                /* writes to /data/data/com.mobvoi.ticwear.mobvoiapidemo/files/ga_contacts */
+                outputStream = openFileOutput(filename, Context.MODE_APPEND);
+                outputStream.write(fileContents.getBytes());
+                outputStream.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
