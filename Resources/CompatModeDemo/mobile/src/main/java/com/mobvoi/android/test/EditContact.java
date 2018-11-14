@@ -1,6 +1,7 @@
 package com.mobvoi.android.test;
 
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -12,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.SimpleCursorAdapter;
@@ -29,7 +31,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class EditContact extends AppCompatActivity {
+public class EditContact extends Activity {
 
     ListView contactsListView;
 
@@ -38,115 +40,138 @@ public class EditContact extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_contact);
         contactsListView = (ListView)findViewById(R.id.listView);
+        Log.d("[debug]", "------------------ getting contacts ------------------");
+        Log.d("[debug]", "------------------ "+ getFilesDir() +" ------------------");
 
-        draw(contactsListView);
-        update(contactsListView);
-
-
-//        contactsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-////            @Override
-////            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-////                String name = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
-////                String phoneNumber = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-////                //phoneNumber = parsePhoneNumber(phoneNumber);
-////                String m = name + " --- " + phoneNumber;
-////                Log.d("[debug]", m);
-////                writeContactToFile(m);
-////            }
-////        });
+        final List<Map<String, String>> data = getContacts();
+        Log.d("[debug]", "------------------ drawing list ------------------");
+        final SimpleAdapter adapter = draw(contactsListView, data);
 
         contactsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
                 HashMap<String, String> temp = (HashMap<String, String>)adapterView.getItemAtPosition(i);
                 Log.d("[debug]", temp.get("name"));
                 Log.d("[debug]", temp.get("number"));
+                update(contactsListView, data, adapter, i);
             }
         });
 
     }
 
-    private void draw(ListView lv) {
+    private SimpleAdapter draw(ListView lv, List<Map<String, String>> d) {
         Log.d("[debug]:", "drawing --------------------------------------------------");
-        List<Map<String, String>> data = getContacts();
+
         String[] from = {"name", "number"};
 
-        SimpleAdapter adapter = new SimpleAdapter(this, data,
+        SimpleAdapter adapter = new SimpleAdapter(this, d,
                 android.R.layout.simple_list_item_2,
                 from,
                 new int[] {android.R.id.text1, android.R.id.text2 });
 
         lv.setAdapter(adapter);
+        return adapter;
     }
 
-    private void update(ListView lv) {
-//        List<Map<String, String>> adapter = (List<Map<String, String>>)lv.getAdapter();
-        Log.d("[debug]", lv.getAdapter().getClass().toString());
-//        for (int i= 0; i < adapter.getCount(); i++) {
-//            Log.d("[debug]", )
-//        }
+    private void update(ListView lv, List<Map<String, String>> d, SimpleAdapter adapt, int removeIndex) {
+
+
+
+        ListAdapter adapter = lv.getAdapter();
+        String message = "";
+
+        // iterate through the adapter to get a list of maps that are contact info
+        for (int i= 0; i < adapter.getCount(); i++) {
+            Map<String, String> temp = (Map<String, String>)adapter.getItem(i);
+            // if the person we are trying to remove ISN'T equal to the current line we are at in the list of maps
+            // append them to the new list we are creating
+            if (!(d.get(removeIndex).toString()).equals(temp.toString())) {
+                // if its the last line don't append the new line
+                if ((i + 1) == adapter.getCount()) {
+                    message += temp.get("name") + "---" + temp.get("number");
+                    continue;
+                }
+                message += temp.get("name") + "---" + temp.get("number") + "\n";
+
+            }
+
+        }
+
+        Log.d("[debug]", message);
+
+        writeContactToFile(message);
+        d.remove(removeIndex);
+        adapt.notifyDataSetChanged();
+
     }
 
     private List<Map<String, String>> getContacts() {
-        Log.d("[debug]:", getFilesDir() + "***********************************************");
-        Log.d("[debug]:","===============================================");
-        File file = new File("/data/data/com.mobvoi.ticwear.mobvoiapidemo/files/ga_contacts");
-        List<Map<String, String>> contacts = new ArrayList<Map<String, String>>();;
-//        Map<String, String> contacts = new HashMap<>();
-        try {
-            FileInputStream stream = new FileInputStream(file);
+//        Log.d("[debug]:","===============================================");
 
-            InputStream is = stream;
-            BufferedReader rd = new BufferedReader(new InputStreamReader(is, "UTF-8"));
-            String line;
+        File file = new File(getFilesDir() + "/ga_contacts");
+        List<Map<String, String>> contacts = new ArrayList<Map<String, String>>();
 
-            while ( (line = rd.readLine()) != null) {
-                String[] data = line.split("---");
-                Map<String, String> contact = new HashMap<String, String>(2);
-                contact.put("number", data[1]);
-                contact.put("name", data[0]);
-                contacts.add(contact);
+        if (file.exists()) {
+            try {
+                FileInputStream stream = new FileInputStream(file);
+
+                InputStream is = stream;
+                BufferedReader rd = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+                String line;
+
+                while ( (line = rd.readLine()) != null) {
+                    String[] data = line.split("---");
+                    Map<String, String> contact = new HashMap<String, String>(2);
+                    contact.put("number", data[1]);
+                    contact.put("name", data[0]);
+                    contacts.add(contact);
+                }
             }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            Log.d("[debug]", "can't find file");
         }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-        Log.d("[debug]:","++++++++++++++++++++++++++++++++++++++++");
+
         return contacts;
     }
 
-    private boolean contactIsUnique(String data) {
-
-        File file = new File("/data/data/com.mobvoi.ticwear.mobvoiapidemo/files/ga_contacts");
-        try {
-            FileInputStream stream = new FileInputStream(file);
-
-            InputStream is = stream;
-            BufferedReader rd = new BufferedReader(new InputStreamReader(is,"UTF-8"));
-            String line;
-
-            while ( (line = rd.readLine()) != null ){
-                if(line.matches(data)){ //--regex of what to search--
-                    Log.d("AddContact", "Contact is NOT unique!");
-                    return false;
-                }
-            }
-            return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
+//    private boolean contactIsUnique(String data) {
+//
+//        File file = new File("/data/data/com.mobvoi.ticwear.mobvoiapidemo/files/ga_contacts");
+//        try {
+//            FileInputStream stream = new FileInputStream(file);
+//
+//            InputStream is = stream;
+//            BufferedReader rd = new BufferedReader(new InputStreamReader(is,"UTF-8"));
+//            String line;
+//
+//            while ( (line = rd.readLine()) != null ){
+//                if(line.matches(data)){ //--regex of what to search--
+//                    Log.d("AddContact", "Contact is NOT unique!");
+//                    return false;
+//                }
+//            }
+//            return true;
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return false;
+//    }
 
     private void writeContactToFile(String data) {
-        File contactsFile = new File("/data/data/com.mobvoi.ticwear.mobvoiapidemo/files/ga_contacts");
-        if (!contactIsUnique(data) && contactsFile.exists()) {
-            /* we don't want to add duplicate contacts */
-            String[] delimiterTokens = data.split(" --- ");
-            String name = delimiterTokens[0];
+//        File contactsFile = new File("/data/data/com.mobvoi.ticwear.mobvoiapidemo/files/ga_contacts");
+        File contactsFile = new File(getFilesDir() + "/ga_contacts");
+
+//        if (!contactIsUnique(data) && contactsFile.exists()) {
+//            /* we don't want to add duplicate contacts */
+//            String[] delimiterTokens = data.split(" --- ");
+//            String name = delimiterTokens[0];
 //            alert("Duplicate contact", name + " is already selected to receive emergency messages.", false);
-            return;
-        }
+//            return;
+//        }
         String filename = "ga_contacts";
         String fileContents = data + "\n";
         FileOutputStream outputStream;
@@ -166,7 +191,7 @@ public class EditContact extends AppCompatActivity {
             try {
                 Log.d("[debug]", "Appending to file!");
                 /* writes to /data/data/com.mobvoi.ticwear.mobvoiapidemo/files/ga_contacts */
-                outputStream = openFileOutput(filename, Context.MODE_APPEND);
+                outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
                 outputStream.write(fileContents.getBytes());
                 outputStream.close();
             } catch (Exception e) {

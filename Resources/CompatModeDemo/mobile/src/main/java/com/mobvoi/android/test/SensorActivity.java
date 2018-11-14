@@ -107,6 +107,16 @@ public class SensorActivity extends Activity {
             }
         });
 
+//        final Button send_button = findViewById(R.id.sms_button);
+//        send_button.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                // Code here executes on main thread after user presses button
+//                startActivity(new Intent(SensorActivity.this, SettingsScreen.class));
+//                sendSMS("7135154644", "testing");
+//            }
+//        });
+
+
         //send = (TextView)findViewById(R.id.sendText);
         //ax = (TextView) findViewById(R.id.axText);
         //ay = (TextView) findViewById(R.id.ayText);

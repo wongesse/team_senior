@@ -4,13 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
-    <Button
-        android:id="@+id/return_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="return/add" />
-
     <ListView
         android:id="@+id/listView"
         android:layout_width="match_parent"
