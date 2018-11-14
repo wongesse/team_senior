@@ -112,6 +112,12 @@
             android:label="SettingsScreen"
             android:parentActivityName=".MainActivity"
             android:uiOptions="splitActionBarWhenNarrow" />
+        <activity
+            android:name=".EditContact"
+            android:label="EditContact"
+            android:parentActivityName=".MainActivity"
+            android:uiOptions="splitActionBarWhenNarrow" />
+
 
         <service android:name=".SensorActivity" >
             <intent-filter>
