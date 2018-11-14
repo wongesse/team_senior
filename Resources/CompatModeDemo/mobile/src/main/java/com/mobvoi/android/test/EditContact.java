@@ -1,4 +1,4 @@
-package com.mobvoi.ticwear.mobvoiapidemo;
+package com.mobvoi.android.test;
 
 
 import android.app.AlertDialog;

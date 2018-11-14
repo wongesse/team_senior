@@ -91,6 +91,14 @@ public class SensorActivity extends Activity {
             }
         });
 
+        final Button edit_button = findViewById(R.id.edit_contact_button);
+        edit_button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Code here executes on main thread after user presses button
+                startActivity(new Intent(SensorActivity.this, EditContact.class));
+            }
+        });
+
         final Button settings_button = findViewById(R.id.settings_button);
         settings_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

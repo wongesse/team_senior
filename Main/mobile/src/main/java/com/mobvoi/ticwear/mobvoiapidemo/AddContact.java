@@ -124,7 +124,9 @@ public class AddContact extends AppCompatActivity {
     public void get(View v) {}
 
     private boolean contactIsUnique(String data) {
-        File file = new File("/data/data/com.mobvoi.ticwear.mobvoiapidemo/files/ga_contacts");
+//        File file = new File("/data/data/com.mobvoi.ticwear.mobvoiapidemo/files/ga_contacts");
+        File file = new File(getFilesDir() + "/ga_contacts");
+
         try {
             FileInputStream stream = new FileInputStream(file);
 
@@ -146,7 +148,8 @@ public class AddContact extends AppCompatActivity {
     }
 
     private void writeContactToFile(String data) {
-        File contactsFile = new File("/data/data/com.mobvoi.ticwear.mobvoiapidemo/files/ga_contacts");
+//        File contactsFile = new File("/data/data/com.mobvoi.ticwear.mobvoiapidemo/files/ga_contacts");
+        File contactsFile = new File(getFilesDir() + "/ga_contacts");
         if (!contactIsUnique(data) && contactsFile.exists()) {
             /* we don't want to add duplicate contacts */
             String[] delimiterTokens = data.split(" --- ");
