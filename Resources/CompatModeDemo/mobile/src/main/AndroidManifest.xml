@@ -45,6 +45,11 @@
             android:label="SettingsScreen"
             android:parentActivityName=".SensorActivity"
             android:uiOptions="splitActionBarWhenNarrow" />
+        <activity
+            android:name=".EditContact"
+            android:label="EditContact"
+            android:parentActivityName=".SensorActivity"
+            android:uiOptions="splitActionBarWhenNarrow" />
 
         <service android:name=".FunctionTestService" >
             <intent-filter>
