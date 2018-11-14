@@ -129,7 +129,7 @@ public class SensorActivity extends Activity {
                 //final String[] xyz = temp.split(",");
                 falldetect.setText("Fall Detection: **" + temp + "** OMG SEND HELP");
                 if (temp.equals("True")) {
-                    alert();
+                    //alert();
                 }
             }
         };
@@ -161,7 +161,7 @@ public class SensorActivity extends Activity {
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        sendSMSander();
+                        //sendSMSander();
                         Toast.makeText(getApplicationContext(),"Help Sent Through SMS",Toast.LENGTH_LONG).show();
                         finish();
                     }
@@ -248,7 +248,7 @@ public class SensorActivity extends Activity {
         return latAndLong;
     }
 
-    public void sendSMSander() {
+    public void sendSMSander(View view) {
         double[] latAndLong = new double[2];
         latAndLong = getGPSData();
         String message = "I have fallen at (" + latAndLong[0] + ", " + latAndLong[1] + ")";
