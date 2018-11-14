@@ -41,20 +41,21 @@ public class EditContact extends Activity {
         setContentView(R.layout.edit_contact);
         contactsListView = (ListView)findViewById(R.id.listView);
         Log.d("[debug]", "------------------ getting contacts ------------------");
-        Log.d("[debug]", "------------------ "+ getFilesDir() +" ------------------");
-
         final List<Map<String, String>> data = getContacts();
         Log.d("[debug]", "------------------ drawing list ------------------");
         final SimpleAdapter adapter = draw(contactsListView, data);
+        Log.d("[debug]", "------------------ done basic ------------------");
+
 
         contactsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
+                Log.d("[debug]", "------------------ updating list ------------------");
                 HashMap<String, String> temp = (HashMap<String, String>)adapterView.getItemAtPosition(i);
-                Log.d("[debug]", temp.get("name"));
-                Log.d("[debug]", temp.get("number"));
                 update(contactsListView, data, adapter, i);
+                Log.d("[debug]", "------------------ update done ------------------");
+
             }
         });
 
@@ -62,14 +63,11 @@ public class EditContact extends Activity {
 
     private SimpleAdapter draw(ListView lv, List<Map<String, String>> d) {
         Log.d("[debug]:", "drawing --------------------------------------------------");
-
         String[] from = {"name", "number"};
-
         SimpleAdapter adapter = new SimpleAdapter(this, d,
                 android.R.layout.simple_list_item_2,
                 from,
                 new int[] {android.R.id.text1, android.R.id.text2 });
-
         lv.setAdapter(adapter);
         return adapter;
     }
@@ -107,7 +105,6 @@ public class EditContact extends Activity {
     }
 
     private List<Map<String, String>> getContacts() {
-//        Log.d("[debug]:","===============================================");
 
         File file = new File(getFilesDir() + "/ga_contacts");
         List<Map<String, String>> contacts = new ArrayList<Map<String, String>>();
@@ -138,45 +135,12 @@ public class EditContact extends Activity {
         return contacts;
     }
 
-//    private boolean contactIsUnique(String data) {
-//
-//        File file = new File("/data/data/com.mobvoi.ticwear.mobvoiapidemo/files/ga_contacts");
-//        try {
-//            FileInputStream stream = new FileInputStream(file);
-//
-//            InputStream is = stream;
-//            BufferedReader rd = new BufferedReader(new InputStreamReader(is,"UTF-8"));
-//            String line;
-//
-//            while ( (line = rd.readLine()) != null ){
-//                if(line.matches(data)){ //--regex of what to search--
-//                    Log.d("AddContact", "Contact is NOT unique!");
-//                    return false;
-//                }
-//            }
-//            return true;
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        return false;
-//    }
-
     private void writeContactToFile(String data) {
-//        File contactsFile = new File("/data/data/com.mobvoi.ticwear.mobvoiapidemo/files/ga_contacts");
         File contactsFile = new File(getFilesDir() + "/ga_contacts");
-
-//        if (!contactIsUnique(data) && contactsFile.exists()) {
-//            /* we don't want to add duplicate contacts */
-//            String[] delimiterTokens = data.split(" --- ");
-//            String name = delimiterTokens[0];
-//            alert("Duplicate contact", name + " is already selected to receive emergency messages.", false);
-//            return;
-//        }
         String filename = "ga_contacts";
         String fileContents = data + "\n";
         FileOutputStream outputStream;
 
-        Log.d("[debug]", "HERE");
         if (!contactsFile.exists()) {
             try {
                 Log.d("[debug]", "Creating new file!");
