@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.telephony.SmsManager;
@@ -107,14 +108,14 @@ public class SensorActivity extends Activity {
             }
         });
 
-//        final Button send_button = findViewById(R.id.sms_button);
-//        send_button.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                // Code here executes on main thread after user presses button
-//                startActivity(new Intent(SensorActivity.this, SettingsScreen.class));
-//                sendSMS("7135154644", "testing");
-//            }
-//        });
+        final Button sms_button = findViewById(R.id.sms_button);
+        settings_button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Code here executes on main thread after user presses button
+                //startActivity(new Intent(SensorActivity.this, SettingsScreen.class));
+                sendSMS("7135154644", "DEAD");
+            }
+        });
 
 
         //send = (TextView)findViewById(R.id.sendText);
@@ -147,7 +148,7 @@ public class SensorActivity extends Activity {
                 //final String[] xyz = temp.split(",");
                 falldetect.setText("Fall Detection: **" + temp + "** OMG SEND HELP");
                 if (temp.equals("True")) {
-                    alert();
+                    alert("Fall Detected!", "Yo! You gucci?", true);
                 }
             }
         };
@@ -159,32 +160,42 @@ public class SensorActivity extends Activity {
         drawBackground();
     }
 
-    public void alert(){
-        AlertDialog alertDialog = new AlertDialog.Builder(this)
-                //set icon
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                //set title
-                .setTitle("Fall Detected")
-                //set message
-                .setMessage("YO! You Gucci?")
-                //set positive button
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+    private void alert(String title, String message, boolean isConfirmation) {
+        // Add paramter that is a function to be called if the confirmation dialog is sucessful
+        final Context context = this;
+        android.app.AlertDialog.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder = new android.app.AlertDialog.Builder(context, android.R.style.Theme_Material_Dialog_Alert);
+        } else {
+            builder = new android.app.AlertDialog.Builder(context);
+        }
+        if (isConfirmation) {
+            builder.setTitle(title)
+                    .setMessage(message)
+                    .setPositiveButton("Help me!", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            sendSMS("","");
+                        }
+                    })
+                    .setNegativeButton("I'm Alright!", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // do nothing
+                        }
+                    })
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+        } else {
+            builder.setTitle(title)
+                    .setMessage(message)
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // continue with delete
+                        }
+                    })
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+        }
 
-                        finish();
-                    }
-                })
-                //set negative button
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        sendSMSander();
-                        Toast.makeText(getApplicationContext(),"Help Sent Through SMS",Toast.LENGTH_LONG).show();
-                        finish();
-                    }
-                })
-                .show();
     }
 
     public void drawBackground() {
@@ -266,7 +277,7 @@ public class SensorActivity extends Activity {
         return latAndLong;
     }
 
-    public void sendSMSander() {
+    public void sendSMSander(View view) {
         double[] latAndLong = new double[2];
         latAndLong = getGPSData();
         String message = "I have fallen at (" + latAndLong[0] + ", " + latAndLong[1] + ")";

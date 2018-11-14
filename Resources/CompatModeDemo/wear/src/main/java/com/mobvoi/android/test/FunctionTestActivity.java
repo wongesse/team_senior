@@ -137,7 +137,7 @@ public class FunctionTestActivity extends Activity implements SensorEventListene
                 Log.d(TAG, "Time now: " + mlPreviousTime);
                 long llTimeDiff = llCurrentTime - mlPreviousTime;
                 Log.d(TAG, "Time diff: " + llTimeDiff);
-                if (llTimeDiff >= 40) {
+                if (llTimeDiff >= 20) {
                     moIsMax = true;
                     Log.d(TAG, "40: " + true);
                 }
