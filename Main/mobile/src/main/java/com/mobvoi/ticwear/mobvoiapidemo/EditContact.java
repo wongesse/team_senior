@@ -47,22 +47,32 @@ public class EditContact extends AppCompatActivity {
                 android.R.layout.simple_list_item_2,
                 from,
                 new int[] {android.R.id.text1, android.R.id.text2 });
-        
+
         contactsListView.setAdapter(adapter);
 
 
 
 //        contactsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                String name = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
-//                String phoneNumber = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-//                //phoneNumber = parsePhoneNumber(phoneNumber);
-//                String m = name + " --- " + phoneNumber;
-//                Log.d("[debug]", m);
-//                writeContactToFile(m);
-//            }
-//        });
+////            @Override
+////            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+////                String name = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+////                String phoneNumber = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+////                //phoneNumber = parsePhoneNumber(phoneNumber);
+////                String m = name + " --- " + phoneNumber;
+////                Log.d("[debug]", m);
+////                writeContactToFile(m);
+////            }
+////        });
+
+        contactsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                HashMap<String, String> temp = (HashMap<String, String>)adapterView.getItemAtPosition(i);
+                Log.d("[debug]", temp.get("name"));
+                Log.d("[debug]", temp.get("number"));
+            }
+        });
+
     }
 
     private List<Map<String, String>> getContacts() {
