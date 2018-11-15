@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import java.text.DecimalFormat;
+import java.util.List;
 
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -14,6 +15,7 @@ import android.hardware.SensorManager;
 
 import android.nfc.Tag;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -38,6 +40,10 @@ public class FunctionTestActivity extends Activity implements SensorEventListene
     private boolean connected = false;
 
     private BroadcastReceiver receiver;
+
+    private static final int SPEECH_REQUEST_CODE = 0;
+
+    private int help = 0;
 
     private void initClient() {
         client = new MobvoiApiClient.Builder(this).addApi(Wearable.API)
@@ -146,7 +152,16 @@ public class FunctionTestActivity extends Activity implements SensorEventListene
 
         if (moIsMin && moIsMax) {
             Log.e(TAG, "FALL DETECTED!");
-            final String message = "True";
+            displaySpeechRecognizer();
+            String temp = "";
+            if (help == 1){
+                temp = "Call";
+            } else if (help == 2) {
+                temp = "Text";
+            } else {
+                temp = "Both";
+            }
+            final String message = "Call";
             final byte[] sendData = message.getBytes();
 
             Utils.setText(FunctionTestActivity.this, "send", message);
@@ -174,6 +189,31 @@ public class FunctionTestActivity extends Activity implements SensorEventListene
             moIsMax = false;
         }
     }
+    // Create an intent that can start the Speech Recognizer activity
+    private void displaySpeechRecognizer() {
+        Intent intent = new Intent(RecognizerIntent.ACTION_VOICE_SEARCH_HANDS_FREE);
+        //intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                //RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        // Start the activity, the intent will be populated with the speech text
+        startActivityForResult(intent, SPEECH_REQUEST_CODE);
+    }
 
-
+    // This callback is invoked when the Speech Recognizer returns.
+    // This is where you process the intent and extract the speech text from the intent.
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode,
+                                    Intent data) {
+        if (requestCode == SPEECH_REQUEST_CODE && resultCode == RESULT_OK) {
+            List<String> results = data.getStringArrayListExtra(
+                    RecognizerIntent.EXTRA_RESULTS);
+            String spokenText = results.get(0);
+            // Do something with spokenText
+            if (spokenText.equals("Call")) {
+                help = 1;
+            } else if (spokenText.equals("Help")){
+                help = 2;
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 }
