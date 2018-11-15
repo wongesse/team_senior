@@ -114,7 +114,7 @@ public class SensorActivity extends Activity {
                 // Code here executes on main thread after user presses button
                 //startActivity(new Intent(SensorActivity.this, SettingsScreen.class));
                 //sendSMS("7135154644", "DEAD");
-                sendSMSander(v);
+                sendSMSander();
             }
         });
 
@@ -282,7 +282,7 @@ public class SensorActivity extends Activity {
         return latAndLong;
     }
 
-    public void sendSMSander(View view) {
+    public void sendSMSander() {
         double[] latAndLong = new double[2];
         latAndLong = getGPSData();
         String message = "I have fallen at (" + latAndLong[0] + ", " + latAndLong[1] + ")";
