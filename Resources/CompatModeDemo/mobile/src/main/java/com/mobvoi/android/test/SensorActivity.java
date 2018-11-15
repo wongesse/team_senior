@@ -117,21 +117,27 @@ public class SensorActivity extends Activity {
                 sendSMSander();
             }
         });
+//        settings_button.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                // Code here executes on main thread after user presses button
+//                //startActivity(new Intent(SensorActivity.this, SettingsScreen.class));
+//                //sendSMS("7135154644", "DEAD");
+//                sendSMSander(v);
 
 
         //send = (TextView)findViewById(R.id.sendText);
         //ax = (TextView) findViewById(R.id.axText);
         //ay = (TextView) findViewById(R.id.ayText);
         //az = (TextView) findViewById(R.id.azText);
-        falldetect = (TextView) findViewById(R.id.fallDetect);
+        //falldetect = (TextView) findViewById(R.id.fallDetect);
 
-        Button button = (Button) findViewById(R.id.dismissAlert);
+        //Button button = (Button) findViewById(R.id.dismissAlert);
 
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                falldetect.setText("Fall Detection: I'm Gucci For Now");
-            }
-        });
+//        button.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                falldetect.setText("Fall Detection: I'm Gucci For Now");
+//            }
+//        });
 
         initClient();
         Log.i(TAG, "init client finished.");
@@ -147,7 +153,7 @@ public class SensorActivity extends Activity {
                 //if (bundle.containsKey("receive")) {
                 String temp = bundle.getString("receive");
                 //final String[] xyz = temp.split(",");
-                falldetect.setText("Fall Detection: **" + temp + "** OMG SEND HELP");
+                //falldetect.setText("Fall Detection: **" + temp + "** OMG SEND HELP");
                 if (temp.equals("True")) {
                     alert("Fall Detected!", "Yo! You gucci?", true);
                 }
@@ -178,7 +184,8 @@ public class SensorActivity extends Activity {
                             double[] latAndLong = new double[2];
                             latAndLong = getGPSData();
                             String message = "HELP!!! I have fallen at (" + latAndLong[0] + ", " + latAndLong[1] + ")";
-                            sendSMS("2707919445", message);
+                            //sendSMS("2707919445", message);
+                            sendSMSander();
                         }
                     })
                     .setNegativeButton("I'm Alright!", new DialogInterface.OnClickListener() {
