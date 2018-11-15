@@ -113,7 +113,8 @@ public class SensorActivity extends Activity {
             public void onClick(View v) {
                 // Code here executes on main thread after user presses button
                 //startActivity(new Intent(SensorActivity.this, SettingsScreen.class));
-                sendSMS("7135154644", "DEAD");
+                //sendSMS("7135154644", "DEAD");
+                sendSMSander(v);
             }
         });
 
