@@ -174,7 +174,10 @@ public class SensorActivity extends Activity {
                     .setMessage(message)
                     .setPositiveButton("Help me!", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-                            sendSMS("","");
+                            double[] latAndLong = new double[2];
+                            latAndLong = getGPSData();
+                            String message = "HELP!!! I have fallen at (" + latAndLong[0] + ", " + latAndLong[1] + ")";
+                            sendSMS("2707919445", message);
                         }
                     })
                     .setNegativeButton("I'm Alright!", new DialogInterface.OnClickListener() {
