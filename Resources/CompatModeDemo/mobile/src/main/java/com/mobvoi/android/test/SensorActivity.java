@@ -223,7 +223,8 @@ public class SensorActivity extends Activity {
         BufferedReader reader;
         try {
             reader = new BufferedReader(new FileReader(
-                    "/data/data/com.mobvoi.ticwear.mobvoiapidemo/files/ga_contacts"));
+                    getFilesDir() + "/ga_contacts"));
+                    //"/data/data/com.mobvoi.ticwear.mobvoiapidemo/files/ga_contacts"));
             String line = reader.readLine();
             while (line != null) {
                 //System.out.println(line);
