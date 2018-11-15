@@ -74,30 +74,28 @@ public class EditContact extends Activity {
 
     private void update(ListView lv, List<Map<String, String>> d, SimpleAdapter adapt, int removeIndex) {
 
-
-
         ListAdapter adapter = lv.getAdapter();
         String message = "";
 
         // iterate through the adapter to get a list of maps that are contact info
         for (int i= 0; i < adapter.getCount(); i++) {
+            Log.d("[debug]", "adapter count: " + adapter.getCount());
             Map<String, String> temp = (Map<String, String>)adapter.getItem(i);
             // if the person we are trying to remove ISN'T equal to the current line we are at in the list of maps
             // append them to the new list we are creating
             if (!(d.get(removeIndex).toString()).equals(temp.toString())) {
                 // if its the last line don't append the new line
-                if ((i + 1) == adapter.getCount()) {
+                if (removeIndex == i) {
                     message += temp.get("name") + "---" + temp.get("number");
-                    continue;
                 }
-                message += temp.get("name") + "---" + temp.get("number") + "\n";
-
+                else {
+                    message += temp.get("name") + "---" + temp.get("number") + "\n";
+                }
             }
 
         }
 
         Log.d("[debug]", message);
-
         writeContactToFile(message);
         d.remove(removeIndex);
         adapt.notifyDataSetChanged();
@@ -118,6 +116,11 @@ public class EditContact extends Activity {
                 String line;
 
                 while ( (line = rd.readLine()) != null) {
+                    if ("".equals(line)) {
+                        Log.d("[debug]", "empty line");
+                        continue;
+                    }
+                    Log.d("[debug]", "line-------------" + line + "-------------");
                     String[] data = line.split("---");
                     Map<String, String> contact = new HashMap<String, String>(2);
                     contact.put("number", data[1]);
@@ -139,30 +142,37 @@ public class EditContact extends Activity {
         File contactsFile = new File(getFilesDir() + "/ga_contacts");
         String filename = "ga_contacts";
         String fileContents = data + "\n";
-        FileOutputStream outputStream;
+        try{
+            FileOutputStream outputStream = new FileOutputStream(contactsFile);
+            outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+            outputStream.write(fileContents.getBytes());
+            outputStream.close();
 
-        if (!contactsFile.exists()) {
-            try {
-                Log.d("[debug]", "Creating new file!");
-                /* writes to /data/data/com.mobvoi.ticwear.mobvoiapidemo/files/ga_contacts */
-                outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
-                outputStream.write(fileContents.getBytes());
-                outputStream.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else {
-            try {
-                Log.d("[debug]", "Appending to file!");
-                /* writes to /data/data/com.mobvoi.ticwear.mobvoiapidemo/files/ga_contacts */
-                outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
-                outputStream.write(fileContents.getBytes());
-                outputStream.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+//        if (!contactsFile.exists()) {
+//            try {
+//                Log.d("[debug]", "Creating new file!");
+//                /* writes to /data/data/com.mobvoi.ticwear.mobvoiapidemo/files/ga_contacts */
+//                outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+//                outputStream.write(fileContents.getBytes());
+//                outputStream.close();
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        } else {
+//            try {
+//                Log.d("[debug]", "Appending to file!");
+//                /* writes to /data/data/com.mobvoi.ticwear.mobvoiapidemo/files/ga_contacts */
+//                outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+//                outputStream.write(fileContents.getBytes());
+//                outputStream.close();
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        }
     }
-
-
 }
