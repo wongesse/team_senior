@@ -3,6 +3,7 @@ package com.mobvoi.android.test;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import java.text.DecimalFormat;
@@ -13,7 +14,9 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
 import android.nfc.Tag;
+import android.os.Build;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -109,7 +112,9 @@ public class FunctionTestActivity extends Activity implements SensorEventListene
 
     boolean moIsMin = false;
     boolean moIsMax = false;
+    boolean orientation = false;
     long mlPreviousTime;
+    long mlFallPoint;
     int i = 0;
     @Override
     public void onSensorChanged(SensorEvent event) {
@@ -117,37 +122,53 @@ public class FunctionTestActivity extends Activity implements SensorEventListene
         double x = event.values[0];
         double y = event.values[1];
         double z = event.values[2];
-        double loAccelerationReader = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2));
+        double sx = Math.pow(x, 2);
+        double sy = Math.pow(y, 2);
+        double sz = Math.pow(z, 2);
+        double loAccelerationReader = Math.sqrt(sx + sy + Math.pow(z, 2));
+        double pitch = Math.atan(x/(Math.sqrt(sy + sz)));
+        double roll = Math.atan(y/(Math.sqrt(sx + sz)));
+
+        Log.d(TAG, "vector sum: " + loAccelerationReader);
+        Log.d(TAG, "pitch: " + pitch);
+        Log.d(TAG, "roll: " + pitch);
 
         if (!connected) {
             return;
         }
 
-        if (loAccelerationReader <= 7.0) {
+        if (loAccelerationReader <= 4.0) {
             mlPreviousTime = System.currentTimeMillis();
-            Log.d(TAG, "Time prev: " + mlPreviousTime);
             moIsMin = true;
-            Log.d(TAG, "Min: " + moIsMin);
         }
 
         if (moIsMin) {
             i++;
-            if (loAccelerationReader >= 40.0) {
+            if (loAccelerationReader >= 50.0) {
                 long llCurrentTime = System.currentTimeMillis();
-                Log.d(TAG, "Time now: " + mlPreviousTime);
                 long llTimeDiff = llCurrentTime - mlPreviousTime;
-                Log.d(TAG, "Time diff: " + llTimeDiff);
-                if (llTimeDiff >= 20) {
+                if (llTimeDiff <= 1500) {
                     moIsMax = true;
-                    Log.d(TAG, "40: " + true);
+                    mlFallPoint = System.currentTimeMillis();
                 }
             }
         }
 
-        if (moIsMin && moIsMax) {
+        if (moIsMax){
+            if (pitch >= 1.0 || roll >= 1.0 || pitch <= -1.0 || roll <= -1.0){
+                long llCurrentTime = System.currentTimeMillis();
+                long llTimeDiff = llCurrentTime - mlFallPoint;
+                if (llTimeDiff < 10)
+                    orientation = true;
+            }
+        }
+
+        if (moIsMin && moIsMax && orientation) {
             Log.e(TAG, "FALL DETECTED!");
             final String message = "True";
             final byte[] sendData = message.getBytes();
+
+            alert();
 
             Utils.setText(FunctionTestActivity.this, "send", message);
 
@@ -172,8 +193,12 @@ public class FunctionTestActivity extends Activity implements SensorEventListene
             i = 0;
             moIsMin = false;
             moIsMax = false;
+            orientation = false;
         }
     }
 
-
+    private void alert() {
+        Intent voiceIntent = new Intent(RecognizerIntent.ACTION_VOICE_SEARCH_HANDS_FREE);
+        mContext.startActivity(voiceIntent);
+    }
 }
