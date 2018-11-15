@@ -181,6 +181,7 @@ public class AddContact extends Activity {
                 e.printStackTrace();
             }
         }
+        alert("Contact Added","", false);
     }
 
     private static boolean isNumeric(char number) {

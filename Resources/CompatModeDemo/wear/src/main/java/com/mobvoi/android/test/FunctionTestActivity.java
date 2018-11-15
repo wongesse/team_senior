@@ -18,6 +18,7 @@ import android.nfc.Tag;
 import android.os.Build;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
+import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -42,10 +43,7 @@ public class FunctionTestActivity extends Activity implements SensorEventListene
     private boolean connected = false;
 
     private BroadcastReceiver receiver;
-
-    private static final int SPEECH_REQUEST_CODE = 0;
-
-    private int help = 0;
+    private String fall_or_not;
 
     private void initClient() {
         client = new MobvoiApiClient.Builder(this).addApi(Wearable.API)
@@ -170,19 +168,12 @@ public class FunctionTestActivity extends Activity implements SensorEventListene
 
         if (moIsMin && moIsMax && orientation) {
             Log.e(TAG, "FALL DETECTED!");
-            displaySpeechRecognizer();
-            String temp = "";
-            if (help == 1){
-                temp = "Call";
-            } else if (help == 2) {
-                temp = "Text";
-            } else {
-                temp = "Both";
-            }
-            final String message = "Call";
+            //displaySpeechRecognizer();
+
+            //alert("Fall Detected" , "Are you okay?", );
+            final String message = "True";
             final byte[] sendData = message.getBytes();
 
-            alert();
 
             Utils.setText(FunctionTestActivity.this, "send", message);
 
@@ -210,31 +201,58 @@ public class FunctionTestActivity extends Activity implements SensorEventListene
             orientation = false;
         }
     }
-    // Create an intent that can start the Speech Recognizer activity
-    private void displaySpeechRecognizer() {
-        Intent intent = new Intent(RecognizerIntent.ACTION_VOICE_SEARCH_HANDS_FREE);
-        //intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
-                //RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        // Start the activity, the intent will be populated with the speech text
-        startActivityForResult(intent, SPEECH_REQUEST_CODE);
-    }
+//    // Create an intent that can start the Speech Recognizer activity
+//    private void displaySpeechRecognizer() {
+//        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+//        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+//                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+//        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Are you Okay?");
+//        // Start the activity, the intent will be populated with the speech text
+//        startActivityForResult(intent, SPEECH_REQUEST_CODE);
+//    }
+//
+//    // This callback is invoked when the Speech Recognizer returns.
+//    // This is where you process the intent and extract the speech text from the intent.
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode,
+//                                    Intent data) {
+//        if (requestCode == SPEECH_REQUEST_CODE && resultCode == RESULT_OK) {
+//            List<String> results = data.getStringArrayListExtra(
+//                    RecognizerIntent.EXTRA_RESULTS);
+//            String spokenText = results.get(0);
+//            // Do something with spokenText
+//            if (spokenText.contains("help")) {
+//                help = 1;
+//            } else if (spokenText.contains("ok")){
+//                help = 2;
+//            }
+//        }
+//        super.onActivityResult(requestCode, resultCode, data);
+//    }
 
-    // This callback is invoked when the Speech Recognizer returns.
-    // This is where you process the intent and extract the speech text from the intent.
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode,
-                                    Intent data) {
-        if (requestCode == SPEECH_REQUEST_CODE && resultCode == RESULT_OK) {
-            List<String> results = data.getStringArrayListExtra(
-                    RecognizerIntent.EXTRA_RESULTS);
-            String spokenText = results.get(0);
-            // Do something with spokenText
-            if (spokenText.equals("Call")) {
-                help = 1;
-            } else if (spokenText.equals("Help")){
-                help = 2;
-            }
-        }
-        super.onActivityResult(requestCode, resultCode, data);
-    }
+//    private void alert(String title, String message, boolean isConfirmation) {
+//        // Add paramter that is a function to be called if the confirmation dialog is sucessful
+//        final Context context = this;
+//        android.app.AlertDialog.Builder builder;
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            builder = new android.app.AlertDialog.Builder(context, android.R.style.Theme_Material_Dialog_Alert);
+//        } else {
+//            builder = new android.app.AlertDialog.Builder(context);
+//        }
+//
+//        builder.setTitle(title)
+//                .setMessage(message)
+//                .setPositiveButton("Help me!", new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        fall_or_not = "True";
+//                    }
+//                })
+//                .setNegativeButton("I'm Alright!", new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        fall_or_not = "False";
+//                    }
+//                })
+//                .setIcon(android.R.drawable.ic_dialog_alert)
+//                .show();
+//    }
 }
