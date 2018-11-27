@@ -50,6 +50,11 @@
             android:label="EditContact"
             android:parentActivityName=".SensorActivity"
             android:uiOptions="splitActionBarWhenNarrow" />
+        <activity
+            android:name=".HapticFeedback"
+            android:label="HapticFeedback"
+            android:parentActivityName=".SensorActivity"
+            android:uiOptions="splitActionBarWhenNarrow" />
 
         <service android:name=".FunctionTestService" >
             <intent-filter>

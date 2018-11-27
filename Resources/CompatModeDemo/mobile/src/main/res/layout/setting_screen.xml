@@ -32,7 +32,7 @@
         android:gravity="center_horizontal" >
 
         <ToggleButton
-            android:id="@+id/deaf"
+            android:id="@+id/response"
             android:layout_width="0dip"
             android:layout_height="match_parent" />
 
@@ -52,7 +52,7 @@
         android:gravity="center_horizontal" >
 
         <ToggleButton
-            android:id="@+id/response"
+            android:id="@+id/state"
             android:layout_width="0dip"
             android:layout_height="match_parent" />
 
@@ -69,7 +69,7 @@
     <TableRow>
 
         <Button
-            android:id="@+id/help_button"
+            android:id="@+id/return_button"
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_marginLeft="40dp"
