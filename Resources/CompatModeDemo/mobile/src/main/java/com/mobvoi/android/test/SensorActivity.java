@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -108,30 +109,30 @@ public class SensorActivity extends Activity {
             }
         });
 
-        final Button sms_button = findViewById(R.id.sms_button);
-        settings_button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                // Code here executes on main thread after user presses button
-                //startActivity(new Intent(SensorActivity.this, SettingsScreen.class));
-                //sendSMS("7135154644", "DEAD");
-                sendSMSander();
-            }
-        });
+//        final Button sms_button = findViewById(R.id.sms_button);
+//        settings_button.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                // Code here executes on main thread after user presses button
+//                //startActivity(new Intent(SensorActivity.this, SettingsScreen.class));
+//                //sendSMS("7135154644", "DEAD");
+//                sendSMSander(v);
+//            }
+//        });
 
 
         //send = (TextView)findViewById(R.id.sendText);
         //ax = (TextView) findViewById(R.id.axText);
         //ay = (TextView) findViewById(R.id.ayText);
         //az = (TextView) findViewById(R.id.azText);
-        falldetect = (TextView) findViewById(R.id.fallDetect);
+        //falldetect = (TextView) findViewById(R.id.fallDetect);
 
-        Button button = (Button) findViewById(R.id.dismissAlert);
+        //Button button = (Button) findViewById(R.id.dismissAlert);
 
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                falldetect.setText("Fall Detection: I'm Gucci For Now");
-            }
-        });
+//        button.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                falldetect.setText("Fall Detection: I'm Gucci For Now");
+//            }
+//        });
 
         initClient();
         Log.i(TAG, "init client finished.");
@@ -147,9 +148,9 @@ public class SensorActivity extends Activity {
                 //if (bundle.containsKey("receive")) {
                 String temp = bundle.getString("receive");
                 //final String[] xyz = temp.split(",");
-                falldetect.setText("Fall Detection: **" + temp + "** OMG SEND HELP");
+                //falldetect.setText("Fall Detection: **" + temp + "** OMG SEND HELP");
                 if (temp.equals("True")) {
-                    alert("Fall Detected!", "Yo! You gucci?", true);
+                    alert("Fall Detected!", "Texted and call your loved ones, help is on the way", true);
                 }
             }
         };
@@ -176,9 +177,7 @@ public class SensorActivity extends Activity {
                     .setPositiveButton("Help me!", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             double[] latAndLong = new double[2];
-                            latAndLong = getGPSData();
-                            String message = "HELP!!! I have fallen at (" + latAndLong[0] + ", " + latAndLong[1] + ")";
-                            sendSMS("2707919445", message);
+                            sendSMSander();
                         }
                     })
                     .setNegativeButton("I'm Alright!", new DialogInterface.OnClickListener() {
@@ -218,6 +217,12 @@ public class SensorActivity extends Activity {
             String errorMessage = "[ERROR] " + ex.toString();
             Log.d("MainActivity", errorMessage);
         }
+    }
+
+    public void call_people(String phoneNumber) {
+        String phone = "+" + phoneNumber;
+        Intent intent = new Intent(Intent.ACTION_CALL, Uri.fromParts("tel", phone, null));
+        startActivity(intent);
     }
 
     public Contact[] getSelectedContacts() {
@@ -295,6 +300,7 @@ public class SensorActivity extends Activity {
                 sendMultimediaMessage(Context context, Uri contentUri, String locationUrl, Bundle configOverrides, PendingIntent sentIntent)*/
                 /* code below can only send to one person since it is an SMS */
                 sendSMS(selectedContacts[i].getPhoneNumber(), message);
+                call_people(selectedContacts[0].getPhoneNumber());
             }
         }
     }

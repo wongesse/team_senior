@@ -3,9 +3,11 @@ package com.mobvoi.android.test;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import java.text.DecimalFormat;
+import java.util.List;
 
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -13,7 +15,10 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
 import android.nfc.Tag;
+import android.os.Build;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
+import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -38,6 +43,7 @@ public class FunctionTestActivity extends Activity implements SensorEventListene
     private boolean connected = false;
 
     private BroadcastReceiver receiver;
+    private String fall_or_not;
 
     private void initClient() {
         client = new MobvoiApiClient.Builder(this).addApi(Wearable.API)
@@ -109,7 +115,9 @@ public class FunctionTestActivity extends Activity implements SensorEventListene
 
     boolean moIsMin = false;
     boolean moIsMax = false;
+    boolean orientation = false;
     long mlPreviousTime;
+    long mlFallPoint;
     int i = 0;
     @Override
     public void onSensorChanged(SensorEvent event) {
@@ -117,37 +125,55 @@ public class FunctionTestActivity extends Activity implements SensorEventListene
         double x = event.values[0];
         double y = event.values[1];
         double z = event.values[2];
-        double loAccelerationReader = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2));
+        double sx = Math.pow(x, 2);
+        double sy = Math.pow(y, 2);
+        double sz = Math.pow(z, 2);
+        double loAccelerationReader = Math.sqrt(sx + sy + Math.pow(z, 2));
+        double pitch = Math.atan(x/(Math.sqrt(sy + sz)));
+        double roll = Math.atan(y/(Math.sqrt(sx + sz)));
+
+        Log.d(TAG, "vector sum: " + loAccelerationReader);
+        Log.d(TAG, "pitch: " + pitch);
+        Log.d(TAG, "roll: " + pitch);
 
         if (!connected) {
             return;
         }
 
-        if (loAccelerationReader <= 7.0) {
+        if (loAccelerationReader <= 4.0) {
             mlPreviousTime = System.currentTimeMillis();
-            Log.d(TAG, "Time prev: " + mlPreviousTime);
             moIsMin = true;
-            Log.d(TAG, "Min: " + moIsMin);
         }
 
         if (moIsMin) {
             i++;
-            if (loAccelerationReader >= 40.0) {
+            if (loAccelerationReader >= 50.0) {
                 long llCurrentTime = System.currentTimeMillis();
-                Log.d(TAG, "Time now: " + mlPreviousTime);
                 long llTimeDiff = llCurrentTime - mlPreviousTime;
-                Log.d(TAG, "Time diff: " + llTimeDiff);
-                if (llTimeDiff >= 20) {
+                if (llTimeDiff <= 1500) {
                     moIsMax = true;
-                    Log.d(TAG, "40: " + true);
+                    mlFallPoint = System.currentTimeMillis();
                 }
             }
         }
 
-        if (moIsMin && moIsMax) {
+        if (moIsMax){
+            if (pitch >= 1.0 || roll >= 1.0 || pitch <= -1.0 || roll <= -1.0){
+                long llCurrentTime = System.currentTimeMillis();
+                long llTimeDiff = llCurrentTime - mlFallPoint;
+                if (llTimeDiff < 10)
+                    orientation = true;
+            }
+        }
+
+        if (moIsMin && moIsMax && orientation) {
             Log.e(TAG, "FALL DETECTED!");
+            //displaySpeechRecognizer();
+
+            //alert("Fall Detected" , "Are you okay?", );
             final String message = "True";
             final byte[] sendData = message.getBytes();
+
 
             Utils.setText(FunctionTestActivity.this, "send", message);
 
@@ -172,8 +198,61 @@ public class FunctionTestActivity extends Activity implements SensorEventListene
             i = 0;
             moIsMin = false;
             moIsMax = false;
+            orientation = false;
         }
     }
+//    // Create an intent that can start the Speech Recognizer activity
+//    private void displaySpeechRecognizer() {
+//        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+//        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+//                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+//        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Are you Okay?");
+//        // Start the activity, the intent will be populated with the speech text
+//        startActivityForResult(intent, SPEECH_REQUEST_CODE);
+//    }
+//
+//    // This callback is invoked when the Speech Recognizer returns.
+//    // This is where you process the intent and extract the speech text from the intent.
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode,
+//                                    Intent data) {
+//        if (requestCode == SPEECH_REQUEST_CODE && resultCode == RESULT_OK) {
+//            List<String> results = data.getStringArrayListExtra(
+//                    RecognizerIntent.EXTRA_RESULTS);
+//            String spokenText = results.get(0);
+//            // Do something with spokenText
+//            if (spokenText.contains("help")) {
+//                help = 1;
+//            } else if (spokenText.contains("ok")){
+//                help = 2;
+//            }
+//        }
+//        super.onActivityResult(requestCode, resultCode, data);
+//    }
 
-
+//    private void alert(String title, String message, boolean isConfirmation) {
+//        // Add paramter that is a function to be called if the confirmation dialog is sucessful
+//        final Context context = this;
+//        android.app.AlertDialog.Builder builder;
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            builder = new android.app.AlertDialog.Builder(context, android.R.style.Theme_Material_Dialog_Alert);
+//        } else {
+//            builder = new android.app.AlertDialog.Builder(context);
+//        }
+//
+//        builder.setTitle(title)
+//                .setMessage(message)
+//                .setPositiveButton("Help me!", new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        fall_or_not = "True";
+//                    }
+//                })
+//                .setNegativeButton("I'm Alright!", new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        fall_or_not = "False";
+//                    }
+//                })
+//                .setIcon(android.R.drawable.ic_dialog_alert)
+//                .show();
+//    }
 }
