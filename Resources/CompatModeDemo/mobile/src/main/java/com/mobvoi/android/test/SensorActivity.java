@@ -307,6 +307,7 @@ public class SensorActivity extends Activity {
                 /* code below can only send to one person since it is an SMS */
                 Log.d("[debug]", "sending message to " + selectedContacts[i].getPhoneNumber());
                 sendSMS(selectedContacts[i].getPhoneNumber(), message);
+
             }
         }
         call_people(selectedContacts[0].getPhoneNumber());
