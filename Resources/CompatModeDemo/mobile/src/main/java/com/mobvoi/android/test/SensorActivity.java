@@ -296,7 +296,7 @@ public class SensorActivity extends Activity {
     public void sendSMSander() {
         double[] latAndLong = new double[2];
         latAndLong = getGPSData();
-        String message = "I have fallen at (" + latAndLong[0] + ", " + latAndLong[1] + ")";
+        String message = "I have fallen at https://www.google.com/maps/search/?api=1&query=" + latAndLong[0] + "," + latAndLong[1];
         Contact[] selectedContacts;
         selectedContacts = getSelectedContacts();
         for (int i = 0; i < selectedContacts.length; i++) {
@@ -307,9 +307,9 @@ public class SensorActivity extends Activity {
                 /* code below can only send to one person since it is an SMS */
                 Log.d("[debug]", "sending message to " + selectedContacts[i].getPhoneNumber());
                 sendSMS(selectedContacts[i].getPhoneNumber(), message);
-                //call_people(selectedContacts[0].getPhoneNumber());
             }
         }
+        call_people(selectedContacts[0].getPhoneNumber());
     }
 
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
