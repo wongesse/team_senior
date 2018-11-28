@@ -176,8 +176,9 @@ public class SensorActivity extends Activity {
                     .setMessage(message)
                     .setPositiveButton("Help me!", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-                            double[] latAndLong = new double[2];
+                            //double[] latAndLong = new double[2];
                             sendSMSander();
+                            //Log.d("Test Alert", "Works");
                         }
                     })
                     .setNegativeButton("I'm Alright!", new DialogInterface.OnClickListener() {
@@ -220,7 +221,7 @@ public class SensorActivity extends Activity {
     }
 
     public void call_people(String phoneNumber) {
-        String phone = "+" + phoneNumber;
+        String phone = phoneNumber;
         Intent intent = new Intent(Intent.ACTION_CALL, Uri.fromParts("tel", phone, null));
         startActivity(intent);
     }
@@ -237,6 +238,10 @@ public class SensorActivity extends Activity {
             String line = reader.readLine();
             while (line != null) {
                 //System.out.println(line);
+                if (line.equals("")) {
+                    line = reader.readLine();
+                    continue;
+                }
                 String[] delimiterTokens = line.split(" --- ");
                 Contact contact = new Contact(delimiterTokens[0], delimiterTokens[1]);
                 selectedContacts[i] = contact;
@@ -280,6 +285,7 @@ public class SensorActivity extends Activity {
             return latAndLong;
         }
         Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
         double longitude = location.getLongitude();
         double latitude = location.getLatitude();
         latAndLong[0] = latitude;
@@ -299,8 +305,9 @@ public class SensorActivity extends Activity {
                 /* think I need to use
                 sendMultimediaMessage(Context context, Uri contentUri, String locationUrl, Bundle configOverrides, PendingIntent sentIntent)*/
                 /* code below can only send to one person since it is an SMS */
+                Log.d("[debug]", "sending message to " + selectedContacts[i].getPhoneNumber());
                 sendSMS(selectedContacts[i].getPhoneNumber(), message);
-                call_people(selectedContacts[0].getPhoneNumber());
+                //call_people(selectedContacts[0].getPhoneNumber());
             }
         }
     }
