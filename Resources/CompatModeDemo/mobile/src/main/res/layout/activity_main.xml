@@ -8,6 +8,8 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.mobvoi.android.test.MainActivity" >
 
+
+
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
