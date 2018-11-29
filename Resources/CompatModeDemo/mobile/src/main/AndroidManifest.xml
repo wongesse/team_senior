@@ -18,13 +18,13 @@
     <application
         android:name=".BaseApplication"
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name"
+        android:icon="@drawable/ic_launcher1"
+        android:label="Guardian Angel"
         android:theme="@style/AppTheme" >
 
         <activity
             android:name=".SensorActivity"
-            android:label="@string/title_activity_function_test" >
+            android:label="Guardian Angel" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

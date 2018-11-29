@@ -35,6 +35,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class SensorActivity extends Activity {
 
@@ -118,31 +120,6 @@ public class SensorActivity extends Activity {
             }
         });
 
-//        final Button sms_button = findViewById(R.id.sms_button);
-//        settings_button.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                // Code here executes on main thread after user presses button
-//                //startActivity(new Intent(SensorActivity.this, SettingsScreen.class));
-//                //sendSMS("7135154644", "DEAD");
-//                sendSMSander(v);
-//            }
-//        });
-
-
-        //send = (TextView)findViewById(R.id.sendText);
-        //ax = (TextView) findViewById(R.id.axText);
-        //ay = (TextView) findViewById(R.id.ayText);
-        //az = (TextView) findViewById(R.id.azText);
-        //falldetect = (TextView) findViewById(R.id.fallDetect);
-
-        //Button button = (Button) findViewById(R.id.dismissAlert);
-
-//        button.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                falldetect.setText("Fall Detection: I'm Gucci For Now");
-//            }
-//        });
-
         initClient();
         Log.i(TAG, "init client finished.");
 
@@ -174,7 +151,7 @@ public class SensorActivity extends Activity {
     private void alert(String title, String message, boolean isConfirmation) {
         // Add paramter that is a function to be called if the confirmation dialog is sucessful
         final Context context = this;
-        android.app.AlertDialog.Builder builder;
+        final android.app.AlertDialog.Builder builder;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             builder = new android.app.AlertDialog.Builder(context, android.R.style.Theme_Material_Dialog_Alert);
         } else {
@@ -197,6 +174,13 @@ public class SensorActivity extends Activity {
                     })
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .show();
+                final Timer t = new Timer();
+                t.schedule(new TimerTask() {
+                    public void run() {
+                        sendSMSander();
+                        t.cancel();
+                    }
+                }, 15000);
         } else {
             builder.setTitle(title)
                     .setMessage(message)
