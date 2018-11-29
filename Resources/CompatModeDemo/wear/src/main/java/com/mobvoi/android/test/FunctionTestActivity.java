@@ -10,6 +10,8 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -53,7 +55,7 @@ public class FunctionTestActivity extends Activity implements SensorEventListene
     private boolean connected = false;
 
     private BroadcastReceiver receiver;
-    private String fall_or_not = "";
+    private String fall_or_not = new String();
 
     private TextToSpeech mTTS;
 
@@ -137,7 +139,7 @@ public class FunctionTestActivity extends Activity implements SensorEventListene
     }
 
     private void speak() {
-        String text = "fuck you han";
+        String text = "Are you okay?";
 
         mTTS.setPitch(1);
         mTTS.setSpeechRate(1);
@@ -179,6 +181,7 @@ public class FunctionTestActivity extends Activity implements SensorEventListene
             ArrayList data = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
             str += data.get(0);
             fall_or_not = str;
+            mText.setText(fall_or_not);
         }
         public void onPartialResults(Bundle partialResults)
         {
@@ -259,7 +262,6 @@ public class FunctionTestActivity extends Activity implements SensorEventListene
 
             Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
             long[] vibrationPattern = {0, 2000, 50, 2000, 50, 2000, 50, 2000};
-            //-1 - don't repeat
             final int indexInPatternToRepeat = -1;
             vibrator.vibrate(vibrationPattern, indexInPatternToRepeat);
 
@@ -269,33 +271,43 @@ public class FunctionTestActivity extends Activity implements SensorEventListene
 
             //alert("Fall Detected" , "Are you okay?", );
             String flag = "";
-            Log.d("D: ", fall_or_not);
-            if (fall_or_not.contains("help")) {
-                flag = "True";
-            }
-            final String message = flag;
-            final byte[] sendData = message.getBytes();
+//            Log.d("D: ", fall_or_not);
+//            mText.setText(fall_or_not);
 
-
-            Utils.setText(FunctionTestActivity.this, "send", message);
-
-            Wearable.NodeApi.getConnectedNodes(client).setResultCallback(new ResultCallback<NodeApi.GetConnectedNodesResult>() {
-                @Override
-                public void onResult(NodeApi.GetConnectedNodesResult result) {
-                    //Log.d(TAG, "send message with nodes (" + result.getNodes().size() + ") " + result.getNodes());
-                    for (Node node : result.getNodes()) {
-                        Wearable.MessageApi.sendMessage(client, node.getId(), "/accelerometer", sendData).setResultCallback(
-                                new ResultCallback<MessageApi.SendMessageResult>() {
-                                    @Override
-                                    public void onResult(MessageApi.SendMessageResult result) {
-                                        if (result.getStatus().isSuccess()) {
-                                            Utils.setText(FunctionTestActivity.this, "send", message);
-                                        }
-                                    }
-                                });
+            final Timer t = new Timer();
+            t.schedule(new TimerTask() {
+                public void run() {
+                    t.cancel();
+                    String flag = "";
+                    if (fall_or_not.contains("help")) {
+                        flag = "True";
                     }
+
+                    final String message = flag;
+                    final byte[] sendData = message.getBytes();
+
+
+                    Utils.setText(FunctionTestActivity.this, "send", message);
+
+                    Wearable.NodeApi.getConnectedNodes(client).setResultCallback(new ResultCallback<NodeApi.GetConnectedNodesResult>() {
+                        @Override
+                        public void onResult(NodeApi.GetConnectedNodesResult result) {
+                            //Log.d(TAG, "send message with nodes (" + result.getNodes().size() + ") " + result.getNodes());
+                            for (Node node : result.getNodes()) {
+                                Wearable.MessageApi.sendMessage(client, node.getId(), "/accelerometer", sendData).setResultCallback(
+                                        new ResultCallback<MessageApi.SendMessageResult>() {
+                                            @Override
+                                            public void onResult(MessageApi.SendMessageResult result) {
+                                                if (result.getStatus().isSuccess()) {
+                                                    Utils.setText(FunctionTestActivity.this, "send", message);
+                                                }
+                                            }
+                                        });
+                            }
+                        }
+                    });
                 }
-            });
+            }, 10000);
 
             i = 0;
             moIsMin = false;
