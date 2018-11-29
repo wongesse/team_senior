@@ -44,6 +44,8 @@ public class SettingsScreen extends Activity {
         // Haptic
         toggleButtonHaptic = (ToggleButton) findViewById(R.id.toggleButtonHaptic);
         toggleButtonHaptic.setChecked(hapticEnabled);
+
+        setTitle("Settings");
     }
 
     public void drawBackground() {

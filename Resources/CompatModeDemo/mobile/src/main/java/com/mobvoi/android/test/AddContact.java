@@ -26,6 +26,7 @@ import java.io.InputStreamReader;
 public class AddContact extends Activity {
     //ListView l1;
     ListView contactsListView;
+    String tappedContactName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +59,7 @@ public class AddContact extends Activity {
                 String phoneNumber = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
                 phoneNumber = parsePhoneNumber(phoneNumber);
                 String m = name + " --- " + phoneNumber;
+                tappedContactName = name;
                 Log.d("[debug]", m);
                 writeContactToFile(m);
             }
@@ -81,6 +83,7 @@ public class AddContact extends Activity {
         l1.setAdapter(simpleCursorAdapter);
         l1.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         */
+        setTitle("Tap on any contact to add");
     }
 
     private void alert(String title, String message, boolean isConfirmation) {
@@ -152,7 +155,7 @@ public class AddContact extends Activity {
             /* we don't want to add duplicate contacts */
             String[] delimiterTokens = data.split(" --- ");
             String name = delimiterTokens[0];
-            alert("Duplicate contact", name + " is already selected to receive emergency messages.", false);
+            alert("Duplicate contact", name + " is already selected to be notified when you fall.", false);
             return;
         }
         String filename = "ga_contacts";
@@ -181,7 +184,7 @@ public class AddContact extends Activity {
                 e.printStackTrace();
             }
         }
-        alert("Contact Added","", false);
+        alert("Contact Added",tappedContactName + " will be notified when you fall.", false);
     }
 
     private static boolean isNumeric(char number) {

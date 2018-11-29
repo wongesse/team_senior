@@ -34,6 +34,7 @@ import java.util.Map;
 public class EditContact extends Activity {
 
     ListView contactsListView;
+    String tappedContactName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,15 +51,17 @@ public class EditContact extends Activity {
         contactsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
                 Log.d("[debug]", "------------------ updating list ------------------");
                 HashMap<String, String> temp = (HashMap<String, String>)adapterView.getItemAtPosition(i);
-                update(contactsListView, data, adapter, i);
+
+                tappedContactName = temp.get("name"); // for confirmation dialog
+                alert("Remove contact", "Are you sure you do NOT want " + tappedContactName + " to be notified when you fall?", true, data, adapter, i);
                 Log.d("[debug]", "------------------ update done ------------------");
 
             }
         });
 
+        setTitle("Tap on any contact to remove");
     }
 
     private SimpleAdapter draw(ListView lv, List<Map<String, String>> d) {
@@ -99,6 +102,44 @@ public class EditContact extends Activity {
         writeContactToFile(message);
         d.remove(removeIndex);
         adapt.notifyDataSetChanged();
+
+    }
+
+    private void alert(String title, String message, boolean isConfirmation, final List<Map<String, String>> data, final SimpleAdapter adapter, final int removeIndex) {
+        // Add paramter that is a function to be called if the confirmation dialog is sucessful
+        final Context context = this;
+        AlertDialog.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder = new AlertDialog.Builder(context, android.R.style.Theme_Material_Dialog_Alert);
+        } else {
+            builder = new AlertDialog.Builder(context);
+        }
+        if (isConfirmation) {
+            builder.setTitle(title)
+                    .setMessage(message)
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            update(contactsListView, data, adapter, removeIndex);
+                        }
+                    })
+                    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // do nothing
+                        }
+                    })
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+        } else {
+            builder.setTitle(title)
+                    .setMessage(message)
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // continue with delete
+                        }
+                    })
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+        }
 
     }
 
