@@ -1,0 +1,16 @@
+<h1>team_senior</h1>
+
+<h2>How to read user's settings</h2>
+
+<p>```java
+/* make sure to put "import android.content.SharedPreferences;" in your file */</p>
+
+<p>SharedPreferences prefs = getSharedPreferences("ga<em>preferences", MODE</em>PRIVATE);</p>
+
+<p>/* to get the response time, if no response time saved then default to 30 <em>/
+int a = prefs.getInt("responseTime", 30);
+/</em> to get the boolean storing if the user wants the app to enabled <em>/
+boolean b = prefs.getBoolean("enabled", true);
+/</em> to get the boolean storing if the user wants haptic feedback */
+boolean c = prefs.getBoolean("hapticEnabled", true);
+```</p>
