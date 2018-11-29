@@ -20,7 +20,7 @@
             android:gravity="center_horizontal" >
 
             <ToggleButton
-                android:id="@+id/haptic"
+                android:id="@+id/toggleButtonHaptic"
                 android:layout_width="0dip"
                 android:layout_height="match_parent" />
 
@@ -64,7 +64,7 @@
             android:gravity="center_horizontal" >
 
             <ToggleButton
-                android:id="@+id/state"
+                android:id="@+id/toggleButtonEnabled"
                 android:layout_width="0dip"
                 android:layout_height="match_parent" />
 
@@ -72,7 +72,7 @@
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="Turn Off App"
+                android:text="Enabled"
                 android:textSize="30sp"
                 android:textStyle="bold"
                 android:textColor="#FFFFFF"/>
@@ -84,13 +84,14 @@
                 android:id="@+id/save_button"
                 android:layout_width="0dip"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
+                android:layout_marginLeft="38dp"
+                android:layout_marginRight="38dp"
                 android:layout_weight="1"
+                android:onClick="save_preferences"
                 android:text="save preferences" />
 
         </TableRow>
 
-
     </TableLayout>
+
 </RelativeLayout>

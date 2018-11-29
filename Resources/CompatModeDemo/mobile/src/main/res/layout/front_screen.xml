@@ -68,7 +68,7 @@
                 android:textColor="#747dd5"
                 android:layout_weight="1"
                 android:background="@drawable/rounded_button"
-                android:text="Edit Contact" />
+                android:text="Edit Contacts" />
         </TableRow>
 
         <TableRow>
