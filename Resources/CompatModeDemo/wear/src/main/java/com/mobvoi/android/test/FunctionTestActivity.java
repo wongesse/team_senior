@@ -19,6 +19,8 @@ import android.nfc.Tag;
 import android.os.Build;
 import android.os.Bundle;
 import android.speech.RecognitionListener;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.speech.tts.TextToSpeech;
@@ -222,6 +224,15 @@ public class FunctionTestActivity extends Activity implements SensorEventListene
 
         if (moIsMin && moIsMax && orientation) {
             Log.e(TAG, "FALL DETECTED!");
+
+            //
+            Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+            long[] vibrationPattern = {0, 500, 50, 300};
+            //-1 - don't repeat
+            final int indexInPatternToRepeat = -1;
+            vibrator.vibrate(vibrationPattern, indexInPatternToRepeat);
+            //
+
             displaySpeechRecognizer();
 
             //alert("Fall Detected" , "Are you okay?", );
