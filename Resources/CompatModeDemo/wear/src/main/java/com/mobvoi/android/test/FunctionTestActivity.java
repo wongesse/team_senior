@@ -9,6 +9,7 @@ import android.content.IntentFilter;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -38,6 +39,8 @@ import com.mobvoi.android.wearable.Node;
 import com.mobvoi.android.wearable.NodeApi;
 import com.mobvoi.android.wearable.Wearable;
 
+import static java.util.Locale.*;
+
 public class FunctionTestActivity extends Activity implements SensorEventListener {
 
     public static final String TAG = "FunctionTest";
@@ -52,7 +55,11 @@ public class FunctionTestActivity extends Activity implements SensorEventListene
     private BroadcastReceiver receiver;
     private String fall_or_not = "";
 
+    private TextToSpeech mTTS;
+
     private void initClient() {
+
+
         client = new MobvoiApiClient.Builder(this).addApi(Wearable.API)
                 .addConnectionCallbacks(new ConnectionCallbacks() {
                     @Override
@@ -108,7 +115,37 @@ public class FunctionTestActivity extends Activity implements SensorEventListene
         sr = SpeechRecognizer.createSpeechRecognizer(this);
         sr.setRecognitionListener(new listener());
         mText = (TextView) findViewById(R.id.value);
+
+        // tts stuff
+        mTTS = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if (status == TextToSpeech.SUCCESS) {
+                    int result = mTTS.setLanguage(GERMAN);
+
+                    if (result == TextToSpeech.LANG_MISSING_DATA
+                            || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                        Log.e("TTS", "Language not supported");
+                    }
+                } else {
+                    Log.e("TTS", "Initialization failed");
+                }
+            }
+        });
+
+        speak();
+
     }
+
+    private void speak() {
+        String text = "fuck you han";
+
+        mTTS.setPitch(1);
+        mTTS.setSpeechRate(1);
+
+        mTTS.speak(text, TextToSpeech.QUEUE_FLUSH, null);
+    }
+
     class listener implements RecognitionListener
     {
         public void onReadyForSpeech(Bundle params)
@@ -229,6 +266,7 @@ public class FunctionTestActivity extends Activity implements SensorEventListene
             //-1 - don't repeat
             final int indexInPatternToRepeat = -1;
             vibrator.vibrate(vibrationPattern, indexInPatternToRepeat);
+
 
             displaySpeechRecognizer();
 
