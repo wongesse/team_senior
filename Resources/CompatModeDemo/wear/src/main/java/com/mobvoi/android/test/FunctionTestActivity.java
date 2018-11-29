@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import android.hardware.Sensor;
@@ -17,7 +18,9 @@ import android.hardware.SensorManager;
 import android.nfc.Tag;
 import android.os.Build;
 import android.os.Bundle;
+import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
+import android.speech.SpeechRecognizer;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.View;
@@ -36,10 +39,12 @@ import com.mobvoi.android.wearable.Wearable;
 public class FunctionTestActivity extends Activity implements SensorEventListener {
 
     public static final String TAG = "FunctionTest";
+    private TextView mText;
     private MobvoiApiClient client;
     private SensorManager mSensorManager;
     private Sensor mAccelerometer;
 
+    private SpeechRecognizer sr;
     private boolean connected = false;
 
     private BroadcastReceiver receiver;
@@ -97,9 +102,58 @@ public class FunctionTestActivity extends Activity implements SensorEventListene
 
         IntentFilter mFilter = new IntentFilter(Utils.INTENT_TAG);
         registerReceiver(receiver, mFilter);
-        Log.i(TAG, "register receiver finished.");
 
-        Log.i(TAG, "set radio button listener finished.");
+        sr = SpeechRecognizer.createSpeechRecognizer(this);
+        sr.setRecognitionListener(new listener());
+        mText = (TextView) findViewById(R.id.value);
+    }
+    class listener implements RecognitionListener
+    {
+        public void onReadyForSpeech(Bundle params)
+        {
+            Log.d(TAG, "onReadyForSpeech");
+        }
+        public void onBeginningOfSpeech()
+        {
+            Log.d(TAG, "onBeginningOfSpeech");
+        }
+        public void onRmsChanged(float rmsdB)
+        {
+            Log.d(TAG, "onRmsChanged");
+        }
+        public void onBufferReceived(byte[] buffer)
+        {
+            Log.d(TAG, "onBufferReceived");
+        }
+        public void onEndOfSpeech()
+        {
+            Log.d(TAG, "onEndofSpeech");
+        }
+        public void onError(int error)
+        {
+            Log.d(TAG,  "error " +  error);
+            //mText.setText("error " + error);
+        }
+        public void onResults(Bundle results)
+        {
+            String str = new String();
+            Log.d(TAG, "onResults " + results);
+            ArrayList data = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
+            for (int i = 0; i < data.size(); i++)
+            {
+                Log.d(TAG, "result " + data.get(i));
+                str += data.get(i);
+            }
+            mText.setText("results: "+String.valueOf(data.size()));
+        }
+        public void onPartialResults(Bundle partialResults)
+        {
+            Log.d(TAG, "onPartialResults");
+        }
+        public void onEvent(int eventType, Bundle params)
+        {
+            Log.d(TAG, "onEvent " + eventType);
+        }
     }
     @Override
     protected void onResume() {
@@ -132,9 +186,9 @@ public class FunctionTestActivity extends Activity implements SensorEventListene
         double pitch = Math.atan(x/(Math.sqrt(sy + sz)));
         double roll = Math.atan(y/(Math.sqrt(sx + sz)));
 
-        Log.d(TAG, "vector sum: " + loAccelerationReader);
-        Log.d(TAG, "pitch: " + pitch);
-        Log.d(TAG, "roll: " + pitch);
+        //Log.d(TAG, "vector sum: " + loAccelerationReader);
+        //Log.d(TAG, "pitch: " + pitch);
+        //Log.d(TAG, "roll: " + pitch);
 
         if (!connected) {
             return;
@@ -201,16 +255,17 @@ public class FunctionTestActivity extends Activity implements SensorEventListene
             orientation = false;
         }
     }
+
     private static final int SPEECH_REQUEST_CODE = 0;
     int help = 0;
+
     // Create an intent that can start the Speech Recognizer activity
     private void displaySpeechRecognizer() {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
-                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Are you Okay?");
-        // Start the activity, the intent will be populated with the speech text
-        startActivityForResult(intent, SPEECH_REQUEST_CODE);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE,"voice.recognition.test");
+        intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS,5);
+        sr.startListening(intent);
     }
 
     // This callback is invoked when the Speech Recognizer returns.
