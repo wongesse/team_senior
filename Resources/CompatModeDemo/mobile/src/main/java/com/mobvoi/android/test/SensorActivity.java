@@ -136,7 +136,8 @@ public class SensorActivity extends Activity {
                 //final String[] xyz = temp.split(",");
                 //falldetect.setText("Fall Detection: **" + temp + "** OMG SEND HELP");
                 if (temp.equals("True")) {
-                    alert("Fall Detected!", "Texted and call your loved ones, help is on the way", true);
+                    //alert("Fall Detected!", "Texted and call your loved ones, help is on the way", true);
+                    sendSMSander();
                 }
             }
         };
@@ -157,6 +158,7 @@ public class SensorActivity extends Activity {
         } else {
             builder = new android.app.AlertDialog.Builder(context);
         }
+        final int alright = 1;
         if (isConfirmation) {
             builder.setTitle(title)
                     .setMessage(message)
@@ -169,11 +171,11 @@ public class SensorActivity extends Activity {
                     })
                     .setNegativeButton("I'm Alright!", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-                            // do nothing
                         }
                     })
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .show();
+            if (alright == 1) {
                 final Timer t = new Timer();
                 t.schedule(new TimerTask() {
                     public void run() {
@@ -181,6 +183,7 @@ public class SensorActivity extends Activity {
                         t.cancel();
                     }
                 }, 15000);
+            }
         } else {
             builder.setTitle(title)
                     .setMessage(message)
