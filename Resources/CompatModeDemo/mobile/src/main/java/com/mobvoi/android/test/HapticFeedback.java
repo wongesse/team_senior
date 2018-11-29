@@ -20,12 +20,12 @@ public class HapticFeedback extends Activity {
             }
         });
 
-        final Button response_button = findViewById(R.id.response);
-        response_button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                // Code here executes on main thread after user presses button
-            }
-        });
+//        final Button response_button = findViewById(R.id.response);
+//        response_button.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                // Code here executes on main thread after user presses button
+//            }
+//        });
 
         final Button state_button = findViewById(R.id.state);
         state_button.setOnClickListener(new View.OnClickListener() {
@@ -34,12 +34,12 @@ public class HapticFeedback extends Activity {
             }
         });
 
-        final Button return_button = findViewById(R.id.return_button);
-        return_button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                // Code here executes on main thread after user presses button
-            }
-        });
+//        final Button return_button = findViewById(R.id.return_button);
+//        return_button.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                // Code here executes on main thread after user presses button
+//            }
+//        });
 
     }
 

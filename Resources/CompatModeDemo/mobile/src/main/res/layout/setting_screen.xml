@@ -1,83 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="bottom">
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin">
 
-    <TableRow
-        android:id="@+id/tableRow1"
+    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal" >
+        android:layout_height="match_parent"
+        android:gravity="bottom">
 
-        <ToggleButton
-            android:id="@+id/haptic"
-            android:layout_width="0dip"
-            android:layout_height="match_parent" />
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal" >
 
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="Haptic Feedback"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            android:textColor="#000000"/>
-    </TableRow>
+            <ToggleButton
+                android:id="@+id/haptic"
+                android:layout_width="0dip"
+                android:layout_height="match_parent" />
 
-    <TableRow
-        android:id="@+id/tableRow2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal" >
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Haptic Feedback"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"/>
+        </TableRow>
 
-        <ToggleButton
-            android:id="@+id/response"
-            android:layout_width="0dip"
-            android:layout_height="match_parent" />
+        <TableRow
+            android:id="@+id/tableRow2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal" >
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="Response Time"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            android:textColor="#000000"/>
-    </TableRow>
-    <TableRow
-        android:id="@+id/tableRow3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal" >
+            <EditText
+                android:id="@+id/editText2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="number" />
 
-        <ToggleButton
-            android:id="@+id/state"
-            android:layout_width="0dip"
-            android:layout_height="match_parent" />
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Response Time"
+                android:textColor="#FFFFFF"
+                android:textSize="30sp"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="Turn Off App"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            android:textColor="#000000"/>
-    </TableRow>
+        </TableRow>
+        <TableRow
+            android:id="@+id/tableRow3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal" >
 
-    <TableRow>
+            <ToggleButton
+                android:id="@+id/state"
+                android:layout_width="0dip"
+                android:layout_height="match_parent" />
 
-        <Button
-            android:id="@+id/return_button"
-            android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:layout_weight="1"
-            android:text="return" />
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Turn Off App"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"/>
+        </TableRow>
 
-    </TableRow>
+        <TableRow>
+
+            <Button
+                android:id="@+id/save_button"
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_weight="1"
+                android:text="save preferences" />
+
+        </TableRow>
 
 
-</TableLayout>
+    </TableLayout>
+</RelativeLayout>
