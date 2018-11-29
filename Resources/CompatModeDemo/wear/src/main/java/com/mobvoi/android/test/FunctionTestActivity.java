@@ -53,7 +53,7 @@ public class FunctionTestActivity extends Activity implements SensorEventListene
     private boolean connected = false;
 
     private BroadcastReceiver receiver;
-    private String fall_or_not;
+    private String fall_or_not = "";
 
     private TextToSpeech mTTS;
 
@@ -183,7 +183,9 @@ public class FunctionTestActivity extends Activity implements SensorEventListene
                 Log.d(TAG, "result " + data.get(i));
                 str += data.get(i);
             }
-            mText.setText("results: "+String.valueOf(data.size()));
+            if (str.contains("help")){
+                fall_or_not = "help";
+            }
         }
         public void onPartialResults(Bundle partialResults)
         {
@@ -262,19 +264,20 @@ public class FunctionTestActivity extends Activity implements SensorEventListene
         if (moIsMin && moIsMax && orientation) {
             Log.e(TAG, "FALL DETECTED!");
 
-            //
             Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
             long[] vibrationPattern = {0, 500, 50, 500, 50, 500, 50, 500};
             //-1 - don't repeat
             final int indexInPatternToRepeat = -1;
             vibrator.vibrate(vibrationPattern, indexInPatternToRepeat);
-            //
 
 
             displaySpeechRecognizer();
 
             //alert("Fall Detected" , "Are you okay?", );
-            final String message = "True";
+            String flag = "";
+            if (fall_or_not.contains("help"))
+                flag = "True";
+            final String message = flag;
             final byte[] sendData = message.getBytes();
 
 
@@ -313,54 +316,8 @@ public class FunctionTestActivity extends Activity implements SensorEventListene
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE,"voice.recognition.test");
-        intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS,5);
+        intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS,2);
+        mText.setText("FALL DETECTED, LISTENING TO RESPONSE");
         sr.startListening(intent);
     }
-
-    // This callback is invoked when the Speech Recognizer returns.
-    // This is where you process the intent and extract the speech text from the intent.
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode,
-                                    Intent data) {
-        if (requestCode == SPEECH_REQUEST_CODE && resultCode == RESULT_OK) {
-            List<String> results = data.getStringArrayListExtra(
-                    RecognizerIntent.EXTRA_RESULTS);
-            String spokenText = results.get(0);
-            // Do something with spokenText
-            if (spokenText.contains("help")) {
-                help = 1;
-            } else if (spokenText.contains("ok")){
-                help = 2;
-            }
-        }
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-
-    private void alert(String title, String message, boolean isConfirmation) {
-        // Add paramter that is a function to be called if the confirmation dialog is sucessful
-        final Context context = this;
-        android.app.AlertDialog.Builder builder;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            builder = new android.app.AlertDialog.Builder(context, android.R.style.Theme_Material_Dialog_Alert);
-        } else {
-            builder = new android.app.AlertDialog.Builder(context);
-        }
-
-        builder.setTitle(title)
-                .setMessage(message)
-                .setPositiveButton("Help me!", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        fall_or_not = "True";
-                    }
-                })
-                .setNegativeButton("I'm Alright!", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        fall_or_not = "False";
-                    }
-                })
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .show();
-    }
-
-
 }
