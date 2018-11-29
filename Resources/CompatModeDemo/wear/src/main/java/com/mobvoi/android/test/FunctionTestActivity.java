@@ -141,11 +141,8 @@ public class FunctionTestActivity extends Activity implements SensorEventListene
             String str = new String();
             Log.d(TAG, "onResults " + results);
             ArrayList data = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-            for (int i = 0; i < data.size(); i++)
-            {
-                Log.d(TAG, "result " + data.get(i));
-                str += data.get(i);
-            }
+            str += data.get(0);
+            mText.setText(str);
             if (str.contains("help")){
                 fall_or_not = "help";
             }
