@@ -173,7 +173,7 @@ public class FunctionTestActivity extends Activity implements SensorEventListene
 
             //
             Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
-            long[] vibrationPattern = {0, 500, 50, 300};
+            long[] vibrationPattern = {0, 500, 50, 500, 50, 500, 50, 500};
             //-1 - don't repeat
             final int indexInPatternToRepeat = -1;
             vibrator.vibrate(vibrationPattern, indexInPatternToRepeat);
