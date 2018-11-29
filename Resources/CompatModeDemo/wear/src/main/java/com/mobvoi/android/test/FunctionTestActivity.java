@@ -133,7 +133,6 @@ public class FunctionTestActivity extends Activity implements SensorEventListene
             }
         });
 
-        speak();
 
     }
 
@@ -270,6 +269,7 @@ public class FunctionTestActivity extends Activity implements SensorEventListene
             final int indexInPatternToRepeat = -1;
             vibrator.vibrate(vibrationPattern, indexInPatternToRepeat);
 
+            speak();
 
             displaySpeechRecognizer();
 
