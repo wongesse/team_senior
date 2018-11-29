@@ -87,7 +87,7 @@
                 android:layout_marginLeft="38dp"
                 android:layout_marginRight="38dp"
                 android:layout_weight="1"
-                android:onClick="save_preferences"
+                android:onClick="savePreferences"
                 android:text="save preferences" />
 
         </TableRow>

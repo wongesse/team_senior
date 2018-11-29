@@ -53,7 +53,6 @@ public class EditContact extends Activity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Log.d("[debug]", "------------------ updating list ------------------");
                 HashMap<String, String> temp = (HashMap<String, String>)adapterView.getItemAtPosition(i);
-
                 tappedContactName = temp.get("name"); // for confirmation dialog
                 alert("Remove contact", "Are you sure you do NOT want " + tappedContactName + " to be notified when you fall?", true, data, adapter, i);
                 Log.d("[debug]", "------------------ update done ------------------");
