@@ -111,14 +111,14 @@ public class SensorActivity extends Activity {
             }
         });
 
-        final Button call_button = findViewById(R.id.call_button);
-        call_button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                // Code here executes on main thread after user presses button
-                //startActivity(new Intent(SensorActivity.this, SettingsScreen.class));
-                call_people("2707919445");
-            }
-        });
+//        final Button call_button = findViewById(R.id.call_button);
+//        call_button.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                // Code here executes on main thread after user presses button
+//                //startActivity(new Intent(SensorActivity.this, SettingsScreen.class));
+//                call_people("2707919445");
+//            }
+//        });
 
         initClient();
         Log.i(TAG, "init client finished.");
