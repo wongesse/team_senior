@@ -179,10 +179,7 @@ public class FunctionTestActivity extends Activity implements SensorEventListene
             Log.d(TAG, "onResults " + results);
             ArrayList data = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
             str += data.get(0);
-            mText.setText(str);
-            if (str.contains("help")){
-                fall_or_not = "help";
-            }
+            fall_or_not = str;
         }
         public void onPartialResults(Bundle partialResults)
         {
@@ -272,8 +269,10 @@ public class FunctionTestActivity extends Activity implements SensorEventListene
 
             //alert("Fall Detected" , "Are you okay?", );
             String flag = "";
-            if (fall_or_not.contains("help"))
+            Log.d("D: ", fall_or_not);
+            if (fall_or_not.contains("help")) {
                 flag = "True";
+            }
             final String message = flag;
             final byte[] sendData = message.getBytes();
 
