@@ -26,6 +26,9 @@ public class SettingsScreen extends Activity {
     ToggleButton toggleButtonHaptic;
     boolean hapticEnabled;
 
+    ToggleButton toggleButtonMessage;
+    boolean messageWithCall;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +50,10 @@ public class SettingsScreen extends Activity {
         toggleButtonHaptic = (ToggleButton) findViewById(R.id.toggleButtonHaptic);
         toggleButtonHaptic.setChecked(hapticEnabled);
 
+        // Call+Message
+        toggleButtonMessage = (ToggleButton) findViewById(R.id.toggleButtonMessage);
+        toggleButtonMessage.setChecked(messageWithCall);
+
         setTitle("Settings");
     }
 
@@ -67,6 +74,7 @@ public class SettingsScreen extends Activity {
         editor.putInt("responseTime", Integer.parseInt(et2.getText().toString()));
         editor.putBoolean("enabled", toggleButtonEnabled.isChecked());
         editor.putBoolean("hapticEnabled", toggleButtonHaptic.isChecked());
+        editor.putBoolean("messageWithCall", toggleButtonMessage.isChecked());
         editor.apply();
     }
     //https://stackoverflow.com/questions/4396376/how-to-get-edittext-value-and-display-it-on-screen-through-textview/4396400
@@ -78,13 +86,15 @@ public class SettingsScreen extends Activity {
         responseTime = prefs.getInt("responseTime", 30);
         enabled = prefs.getBoolean("enabled", true);
         hapticEnabled = prefs.getBoolean("hapticEnabled", true);
+        messageWithCall = prefs.getBoolean("messageWithCall", true);
     }
 
     private boolean settingsDidChange() {
         SharedPreferences prefs = getSharedPreferences("ga_preferences", MODE_PRIVATE);
         if (prefs.getInt("responseTime", 30) != Integer.parseInt(et2.getText().toString()) ||
                 prefs.getBoolean("enabled", true) != toggleButtonEnabled.isChecked() ||
-                prefs.getBoolean("hapticEnabled", true) != toggleButtonHaptic.isChecked()) {
+                prefs.getBoolean("hapticEnabled", true) != toggleButtonHaptic.isChecked() ||
+                prefs.getBoolean("messageWithCall", true) != toggleButtonMessage.isChecked()) {
             return true;
         } else {
             return  false;
