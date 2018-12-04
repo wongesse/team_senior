@@ -13,5 +13,15 @@ public class HelpScreen extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.help_screen);
+
+        drawBackground();
+    }
+
+    public void drawBackground() {
+        RelativeLayout relativeLayout; // for gradient background
+        relativeLayout = (RelativeLayout) findViewById(R.id.background);
+        int[] colors = new int[]{Color.parseColor("#494391"), Color.parseColor("#7c8cf4")};
+        GradientDrawable gradientDrawable = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors);
+        relativeLayout.setBackgroundDrawable(gradientDrawable);
     }
 }
