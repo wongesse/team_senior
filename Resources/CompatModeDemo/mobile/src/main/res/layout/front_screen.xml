@@ -1,4 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -100,4 +102,16 @@
                 android:textColor="#FFFFFF" />
         </TableRow>
     </TableLayout>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="170dp"
+        android:layout_height="123dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="31dp"
+        tools:srcCompat="@drawable/ga"
+        android:scaleX="4"
+        android:scaleY="4"
+        android:src="@drawable/ga"/>
 </RelativeLayout>
